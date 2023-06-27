@@ -1,14 +1,28 @@
 /**
- * Database Connection Module
+ * @fileoverview This module sets up a connection to a PostgreSQL database, 
+ * using connection parameters from the config module. It creates a new 
+ * PostgreSQL client and exports this connected client for use in other modules.
  * 
- * This module establishes a connection to a PostgreSQL database using the 
- * configuration provided by the config.js module. It exports the connected 
- * database client for use in other parts of the application.
+ * The `getDatabaseUri` function from the config module is used to get the 
+ * connection string for the database.
+ * 
+ * The `Client` class from the `pg` module is used to create a new database 
+ * client.
+ *
+ * The `connectToPostgreSQL` function is an asynchronous function that attempts
+ * to connect to the database using the client and logs a message to the 
+ * terminal on success or failure.
+ * 
+ * @module db
+ * @requires module:pg
+ * @requires module:config
+ * 
+ * @exports client
  */
 const { getDatabaseUri } = require("./config")
 const { Client } = require("pg")
 
-const databaseUri = getDatabaseUri()
+const databaseUri = getDatabaseUri
 
 // Create a new PostgreSQL client
 const client = new Client({
