@@ -1,33 +1,20 @@
 /**
- * Test suite for the config module used in the application.
+ * @fileoverview This module performs a suite of tests on the 'config' module, 
+ * verifying that all the expected environment variables and functions are 
+ * correctly exported and work as expected. 
+ * 
+ * The Jest testing framework is used for these tests. They include:
+ * - Tests to verify that each of the expected environment variables (`PORT`, 
+ *   `SECRET_KEY`, `BCRYPT_WORK_FACTOR`, and `IS_TESTING`) is exported by the 
+ *   'config' module.
+ * - Tests to verify that the `getDatabaseUri` function is exported and 
+ *   correctly constructs the database URI based on the environment variables.
  *
- * This test suite covers the following functionality:
- *  - Checking if the environment is set to test mode
- *  - Verifying the exported environment variables PORT, SECRET_KEY, 
- *    BCRYPT_WORK_FACTOR, IS_TESTING, and the function getDatebaseUri
- *  - Testing different scenarios for the getDatebaseUri function
+ * @module config.test
+ * @requires jest
+ * @requires module:config
  *
- * Each piece of functionality is tested using the Jest testing framework, with
- * a series of unit tests that verify both the existence and correct typing of 
- * the exported variables and function, as well as the correct behavior of the 
- * getDatebaseUri function under different environment configurations.
- *
- * Test Cases:
- *
- * 1. 'IS_TESTING':
- *     - Verify that the environment is correctly detected as being in test mode
- *
- * 2. 'config.js exports':
- *     - Verify that the PORT, SECRET_KEY, BCRYPT_WORK_FACTOR, and IS_TESTING 
- *       environment variables are exported correctly
- *     - Verify that the getDatebaseUri function is exported correctly
- *
- * 3. 'getDatebaseUri':
- *     - Verify that the function returns the DATABASE_URL environment variable 
- *       if it exists
- *     - Verify that the function uses the test database when IS_TESTING is true
- *     - Verify that the function correctly constructs a connection string from 
- *       the database environment variables if no DATABASE_URL environment variable exists
+ * @exports IS_TESTING
  */
 const { PORT, SECRET_KEY, BCRYPT_WORK_FACTOR, IS_TESTING, getDatebaseUri } = require('./config')
 

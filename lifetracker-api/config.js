@@ -1,22 +1,25 @@
 /**
- * @fileoverview This module is responsible for configuring and exporting 
- * environment variables and application settings.
+ * @fileoverview This module handles the configuration of environment variables for an Express.js application. 
+ * It reads the application's environment variables, provides defaults if necessary, and exports these 
+ * values for use in other parts of the application.
  *
- * It uses the dotenv library to load environment variables from a .env file 
- * into process.env, if such a file exists. It then extracts, formats, and 
- * exports these variables for use throughout the application. These variables
- * include PORT, SECRET_KEY, BCRYPT_WORK_FACTOR, IS_TESTING, and the function 
- * getDatebaseUri.
+ * The following environment variables are managed:
+ * - `PORT`: The port number on which the Express.js server should listen.
+ * - `SECRET_KEY`: The secret key for signing and verifying JWTs.
+ * - `BCRYPT_WORK_FACTOR`: The work factor to be used by bcrypt for hashing passwords.
+ * - `IS_TESTING`: A boolean flag that is true if the application is in the testing environment.
+ * 
+ * In addition to these environment variables, the module also exports a function, `getDatabaseUri`, 
+ * which returns the appropriate database URI based on the current environment.
  *
- * PORT: The port on which the server runs, default is 3001.
- * SECRET_KEY: A secret key for encoding and decoding JWTs.
- * BCRYPT_WORK_FACTOR: Work factor for bcrypt hashing algorithm, default is 12.
- * IS_TESTING: A boolean indicating whether the environment is for testing.
+ * @module config
+ * @requires dotenv
  *
- * The getDatebaseUri function constructs and returns the database connection 
- * URI, which depends on whether the environment is for testing, whether the 
- * DATABASE_URL environment variable exists, and the values of the 
- * DATABASE_HOST, DATABASE_PORT, and DATABASE_NAME variables.
+ * @exports PORT
+ * @exports SECRET_KEY
+ * @exports BCRYPT_WORK_FACTOR
+ * @exports IS_TESTING
+ * @exports getDatabaseUri
  */
 require('dotenv').config()
 
