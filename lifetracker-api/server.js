@@ -1,8 +1,7 @@
-const { config } = require('dotenv')
+require('dotenv').config()
 
 const app = require('./app')
 
-config()
 
 const port = process.env.PORT || 3001
 
