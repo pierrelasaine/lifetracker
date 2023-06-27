@@ -47,10 +47,8 @@ const getDatebaseUri = () => {
 
     return (IS_TESTING)
         ? 'postgresql://postgres:postgres@localhost/testingURL'
-        : process.env.DATABASE_URL || `postgresql://postgres:postgres@
-                                       ${DATABASE_HOST}:
-                                       ${DATABASE_PORT}/
-                                       ${DATABASE_NAME}`
+        : process.env.DATABASE_URL 
+            || `postgresql://postgres:postgres@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`
 }
 
 module.exports = {
