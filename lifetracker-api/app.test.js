@@ -8,15 +8,15 @@
  * @module app.test
  * @requires supertest
  * @requires app - The Express application being tested.
- * @requires db - The application's database module.
+ * @requires database - The application's database module.
  */
 const request = require('supertest')
 const app = require('./app')
-const db = require('./db')
+const database = require('./db')
 
 describe('Express application', () => {
     afterAll(async () => {
-        await db.end()
+        await database.end()
     })
 
     it(`should respond to 'GET /' request with route with a JSON object of 

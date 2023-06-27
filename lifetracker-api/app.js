@@ -8,7 +8,11 @@
  * Resource Sharing (CORS) with the `cors` middleware.
  * 
  * There is also a test route configured on the root URL ("/") that returns 
- * a JSON object `{ "ping": "pong" }` when a `GET` request is made to it.
+ * a JSON object `{ "ping": "pong" }` when a `GET` request is made to it. 
+ * 
+ * --- add more here ---
+ * Additionally, there is a 404 handler that is applied as the last middleware.
+ * ---------------------
  * 
  * @module app
  * @requires express - Express.js for creating the application.
@@ -18,6 +22,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const { NotFoundError } = require('./utils/errors')
 
 const app = express()
 
@@ -28,6 +33,38 @@ app.use(cors())
 app.get('/', (request, response) => {
     response.status(200).json({ "ping": "pong" })
 })
+
+/**
+ * @supportqueue
+ * is this right??
+ * README.md line 446
+ */
+app.get('*', (request, response, next) => {
+    next(new NotFoundError)
+})
+/**
+ * alternative??:
+ * 
+ * // Other middleware...
+ *   // 404 middleware
+ *  app.use((req, res, next) => {
+ *  if (req.url === '/not-found') {
+ *      res.status(404).send('Not found')
+ *  } else {
+ *      next()
+ *  }
+ *  })
+ *
+ *  // Generic error handler middleware
+ *  app.use((err, req, res, next) => {
+ *  // Log the error
+ *  console.error(err)
+ *
+ *  // Send a 500 error response
+ *  res.status(500).send('Something went wrong')
+ *  })
+ * 
+ */
 
 console.log(1, app.get('cors'))
 
