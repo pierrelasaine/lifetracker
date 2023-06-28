@@ -23,12 +23,21 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const { NotFoundError } = require('./utils/errors')
+const { parseAuthHeader, requireAuthenticatedUser } = require('./middleware/security')
 
 const app = express()
 
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
+/**
+ * @supportqueue
+ * is this right??
+ * how do I pass in the request, response, next?
+ * README.md line 533
+ */
+app.use(parseAuthHeader(request, response, next))
+app.use(requireAuthenticatedUser(request, response, next))
 
 app.get('/', (request, response) => {
     response.status(200).json({ "ping": "pong" })
