@@ -31,7 +31,7 @@ class ExpressError extends Error {
         this.status = status
 //        console.error(this.stack)
     }
-    }
+}
 
 class BadRequestError extends ExpressError {
     constructor(message = "Bad Request") {
