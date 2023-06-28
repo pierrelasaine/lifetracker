@@ -12,7 +12,7 @@
  */
 const request = require('supertest')
 const app = require('./app')
-const database = require('./db')
+const database = require('./database')
 
 describe('Express application', () => {
     afterAll(async () => {
