@@ -45,7 +45,7 @@ async function connectToPostgreSQL() {
 }
 
 // Connect to PostgreSQL and log a message to the terminal on success or failure
-connectToPostgreSQL();
+connectToPostgreSQL()
 
 // Export the connected database client
-module.exports = client;
+module.exports = client

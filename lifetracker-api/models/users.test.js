@@ -1,16 +1,28 @@
 /**
- * @fileoverview The test suite for the User model. Contains test cases for the 
- * functions 'login', 'register', and 'fetchUserByEmail'. It validates the error 
- * handling of the functions and checks the correctness of their returned results. 
- * Prior to each test, a user is created and added to the database. After each 
- * test, the user is removed from the database to ensure a clean environment for 
- * the next test. The database connection is ended after all tests have run.
+ * @fileoverview Test file for User model functions. The test suite ensures that the 
+ * 'login', 'register', and 'fetchUserByEmail' methods are working as expected.
  *
  * @module models/users.test
- * @requires module:dotenv/config
- * @requires module:models/users
- * @requires module:database
- * @requires module:utils/errors
+ * @requires dotenv Configuration module that loads environment variables.
+ * @requires users The User model module.
+ * @requires database The database connection module.
+ * @requires utils/errors Custom error classes module.
+ *
+ * @description
+ * A collection of tests for the 'User' model.
+ * The test suite includes:
+ * 1. @testsuite 'login': 
+ *      - Ensures it logs in successfully with proper credentials.
+ *      - Ensures it throws UnauthorizedError if email is unknown.
+ *      - Ensures it throws UnauthorizedError if password is invalid.
+ * 2. @testsuite 'register': 
+ *      - Ensures it registers successfully with proper credentials.
+ *      - Ensures it throws BadRequestError if email is duplicate.
+ *      - Ensures it throws BadRequestError if username is duplicate.
+ *      - Ensures it throws BadRequestError if email is invalid.
+ * 3. @testsuite 'fetchUserByEmail': 
+ *      - Ensures it returns a user from the database with a valid email.
+ *      - Ensures it handles invalid emails correctly by throwing a BadRequestError.
  */
 require('dotenv').config()
 const User = require('./users')
@@ -58,7 +70,7 @@ describe('User', () => {
                 password: 'mockPassword' 
             }))
                 .rejects
-                .toThrow(UnauthorizedError);
+                .toThrow(UnauthorizedError)
         })
 
         it('should throw UnauthorizedError if password is invalid', async () => {
@@ -67,7 +79,7 @@ describe('User', () => {
                 password: 'mockInvalid' 
             }))
                 .rejects
-                .toThrow(UnauthorizedError);
+                .toThrow(UnauthorizedError)
         })
     })
 

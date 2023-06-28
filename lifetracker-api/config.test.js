@@ -1,20 +1,16 @@
 /**
- * @fileoverview This module performs a suite of tests on the 'config' module, 
- * verifying that all the expected environment variables and functions are 
- * correctly exported and work as expected. 
- * 
- * The Jest testing framework is used for these tests. They include:
- * - Tests to verify that each of the expected environment variables (`PORT`, 
- *   `SECRET_KEY`, `BCRYPT_WORK_FACTOR`, and `IS_TESTING`) is exported by the 
- *   'config' module.
- * - Tests to verify that the `getDatabaseUri` function is exported and 
- *   correctly constructs the database URI based on the environment variables.
+ * @fileoverview This file contains test cases for configuration settings of the application. 
+ * Tests for the proper setup of environment variables and the `getDatabaseUri` function are included.
  *
  * @module config.test
- * @requires jest
- * @requires module:config
+ * @requires config Module for application configuration settings.
  *
- * @exports IS_TESTING
+ * @description
+ * A test suite for the `config.js` file and related environment variables.
+ * This suite includes tests for:
+ * 1. The `IS_TESTING` flag.
+ * 2. The various exported environment variables (`PORT`, `SECRET_KEY`, `BCRYPT_WORK_FACTOR`, `IS_TESTING`).
+ * 3. The `getDatabaseUri` function, which generates a database URI depending on the environment.
  */
 const { PORT, SECRET_KEY, BCRYPT_WORK_FACTOR, IS_TESTING, getDatebaseUri } = require('./config')
 

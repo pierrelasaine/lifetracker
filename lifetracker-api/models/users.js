@@ -13,7 +13,7 @@ const database = require('../database')
 const { BCRYPT_WORK_FACTOR } = require('../config')
 const { UnauthorizedError, BadRequestError } = require('../utils/errors')
 
-const credentials = {
+const credentialsSchema = {
     id: String,
     username: String,
     hashedPassword: String,
@@ -25,13 +25,10 @@ const credentials = {
 class User {
     /**
      * Attempts to log a user in with provided email and password.
-     * 
      * @param {Object} credentials - The user's login credentials.
      * @param {string} credentials.email - The user's email.
      * @param {string} credentials.password - The user's password.
-     * 
      * @returns {Object} The logged in user's data, excluding password.
-     * 
      * @throws {UnauthorizedError} If the email doesn't exist or password doesn't match.
      */
     static async login({ email, password }) {
@@ -56,16 +53,13 @@ class User {
 
     /**
      * Registers a new user with provided credentials.
-     * 
      * @param {Object} credentials - The new user's credentials.
      * @param {string} credentials.username - The new user's desired username.
      * @param {string} credentials.password - The new user's desired password.
      * @param {string} credentials.firstName - The new user's first name.
      * @param {string} credentials.lastName - The new user's last name.
      * @param {string} credentials.email - The new user's email.
-     * 
      * @returns {Object} The newly registered user's data.
-     * 
      * @throws {BadRequestError} If email is invalid, username or email is already in use.
      */
     static async register(credentials) {
@@ -109,11 +103,8 @@ class User {
 
     /**
      * Fetches a user by their email.
-     * 
      * @param {string} email - The email of the user to be fetched.
-     * 
      * @returns {Object} The user's data.
-     * 
      * @throws {BadRequestError} If no account exists with provided email.
      */
     static async fetchUserByEmail(email) {

@@ -18,7 +18,6 @@
  *   message "Not Found".
  * 
  * @module errors
- * 
  * @exports ExpressError
  * @exports BadRequestError
  * @exports UnauthorizedError
@@ -27,34 +26,34 @@
  */
 class ExpressError extends Error {
     constructor(message, status) {
-        super();
-        this.message = message;
-        this.status = status;
-        console.error(this.stack);
+        super()
+        this.message = message
+        this.status = status
+//        console.error(this.stack)
     }
     }
 
 class BadRequestError extends ExpressError {
     constructor(message = "Bad Request") {
-        super(message, 400);
+        super(message, 400)
     }
 }
 
 class UnauthorizedError extends ExpressError {
     constructor(message = "Unauthorized") {
-        super(message, 401);
+        super(message, 401)
     }
 }
 
 class ForbiddenError extends ExpressError {
     constructor(message = "Forbidden") {
-        super(message, 403);
+        super(message, 403)
     }
 }
 
 class NotFoundError extends ExpressError {
     constructor(message = "Not Found") {
-        super(message, 404);
+        super(message, 404)
     }
 }
 

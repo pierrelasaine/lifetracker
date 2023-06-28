@@ -1,14 +1,21 @@
 /**
- * @fileoverview This module contains tests for the Express application.
- * It includes a suite of tests that verify the application's response to
- * different requests, as well as the presence of necessary middleware. 
- * The module uses Jest and supertest to execute the tests, and it should 
- * be run as part of the overall application test suite.
- * 
+ * @fileoverview Test file for Express application setup and its middlewares. 
+ * The test suite ensures that the root route and included middlewares 
+ * are working as expected.
+ *
  * @module app.test
- * @requires supertest
- * @requires app - The Express application being tested.
- * @requires database - The application's database module.
+ * @requires supertest HTTP assertions module.
+ * @requires app The Express application module.
+ * @requires database The database connection module.
+ *
+ * @description
+ * A collection of tests for the Express application setup.
+ * The test suite includes:
+ * 1. Testing the response to 'GET /' request.
+ *      - Ensures it responds with a JSON object '{ "ping": "pong" }'.
+ * 2. Testing for inclusion of middleware: `morgan`, `cors`, and `express.json`.
+ *      - Ensures each middleware is defined in the app.
+ * @todo There is an issue with `app.use` in the middleware tests that needs to be resolved.
  */
 const request = require('supertest')
 const app = require('./app')
