@@ -30,7 +30,7 @@ const mockPayload = {
 describe('Token utilities', () => {
     let mockToken
     beforeEach(() => {
-        mockToken = jwt.sign(mockPayload, secret)
+        mockToken = createToken(mockPayload, secret)
     })
 
     describe('createToken', () => {
