@@ -35,7 +35,7 @@ const client = new Client({
  * It logs a success message to the terminal if the connection is successful,
  * or an error message if the connection fails.
  */
-async function connectToPostgreSQL() {
+const connectToPostgreSQL = async () => {
   try {
     await client.connect()
     console.log('🚀 Connected to PostgreSQL 🚀')
