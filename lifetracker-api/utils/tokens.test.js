@@ -21,7 +21,6 @@ const jwt = require('jsonwebtoken')
 const { createToken, validateToken } = require('./tokens')
 const { SECRET_KEY } = require('../config')
 
-const secret = SECRET_KEY
 const mockPayload = {
     id: "mock",
     username: "mock_user"
@@ -30,12 +29,12 @@ const mockPayload = {
 describe('Token utilities', () => {
     let mockToken
     beforeEach(() => {
-        mockToken = createToken(mockPayload, secret)
+        mockToken = createToken(mockPayload, SECRET_KEY)
     })
 
     describe('createToken', () => {
         it('creates valid JWT for user payload', () => {
-            const decoded = jwt.verify(mockToken, secret)
+            const decoded = jwt.verify(mockToken, SECRET_KEY)
 
             expect(decoded.id).toBe(mockPayload.id)
             expect(decoded.username).toBe(mockPayload.username)
@@ -44,7 +43,7 @@ describe('Token utilities', () => {
 
     describe('validateToken', () => {
         it('extracts payload from valid JWT', () => {
-            const result = validateToken(mockToken, secret)
+            const result = validateToken(mockToken, SECRET_KEY)
 
             expect(result.id).toBe(mockPayload.id)
             expect(result.username).toBe(mockPayload.username)
@@ -53,7 +52,7 @@ describe('Token utilities', () => {
         it('returns null for invalid token', () => {
             const invalidToken = 'this.is.clearly.invalid'
 
-            const result = validateToken(invalidToken, secret)
+            const result = validateToken(invalidToken, SECRET_KEY)
 
             expect(result).toBeNull()
         })

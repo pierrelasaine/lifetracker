@@ -26,7 +26,7 @@ const { SECRET_KEY } = require('../config')
  * @param {string} secret - The secret key used for signing the JWT.
  * @returns {string|null} The JWT if successful, or null if an error occurred.
  */
-function createToken(payload, secret) {
+const createToken = (payload, secret) => {
     return jwt.sign(payload, secret) || null
 }
 
@@ -36,7 +36,7 @@ function createToken(payload, secret) {
  * @param {string} secret - The secret key used to verify the JWT.
  * @returns {Object|null} The payload of the JWT if the token is valid, or null if the token is invalid or if the secret key does not match.
  */
-function validateToken(token, secret) {
+const validateToken = (token, secret) => {
     if (secret !== SECRET_KEY) {
         return null
     } else {
