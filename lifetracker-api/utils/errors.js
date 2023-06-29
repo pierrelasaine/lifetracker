@@ -33,24 +33,40 @@ class ExpressError extends Error {
     }
 }
 
+/**
+ * @status 400
+ * @message Bad Request
+ */
 class BadRequestError extends ExpressError {
     constructor(message = "Bad Request") {
         super(message, 400)
     }
 }
 
+/**
+ * @status 401
+ * @message Unauthorized
+ */
 class UnauthorizedError extends ExpressError {
     constructor(message = "Unauthorized") {
         super(message, 401)
     }
 }
 
+/**
+ * @status 403
+ * @message Forbidden
+ */
 class ForbiddenError extends ExpressError {
     constructor(message = "Forbidden") {
         super(message, 403)
     }
 }
 
+/**
+ * @status 404
+ * @message Not Found
+ */
 class NotFoundError extends ExpressError {
     constructor(message = "Not Found") {
         super(message, 404)
