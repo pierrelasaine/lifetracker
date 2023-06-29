@@ -6,7 +6,7 @@
  * @requires config The configuration module with secret key.
  * @requires tokens The token utility module for token validation.
  * @requires errors The errors module for throwing Unauthorized errors.
- * @exports parseAuthHeader
+ * @exports parseAuthorizationHeader
  * @exports requireAuthenticatedUser
  */
 const { SECRET_KEY } = require('../config')
@@ -22,11 +22,11 @@ const { UnauthorizedError } = require('../utils/errors')
  * @param {Function} next The next middleware function.
  * @returns {Function} The next middleware function.
  */
-const parseAuthHeader = (request, response, next) => {
+const parseAuthorizationHeader = (request, response, next) => {
     const token = request.headers.authorization?.split(' ')[1]
     if (token) {
-        const user = validateToken(token, SECRET_KEY)
-        response.locals.user = (user)? user : undefined
+        const email = validateToken(token, SECRET_KEY)
+        response.locals.user = (email)? email : undefined
     } else {
         response.locals.user = undefined
     }
@@ -43,13 +43,17 @@ const parseAuthHeader = (request, response, next) => {
  * @throws {UnauthorizedError} If no valid user is present in the response locals.
  */
 const requireAuthenticatedUser = (request, response, next) => {
-    if (!response.locals.user) {
-        throw new UnauthorizedError()
+    try {
+        if (!response.locals.user)
+            throw new UnauthorizedError('Not logged in')
+            
+        return next()
+    } catch (error) {
+        return next(error)
     }
-    return next()
 }
 
 module.exports = {
-    parseAuthHeader,
+    parseAuthorizationHeader,
     requireAuthenticatedUser
 }

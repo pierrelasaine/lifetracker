@@ -1,6 +1,6 @@
 /**
  * @fileoverview Test file for security middleware functions. This test suite aims to ensure that 
- * the 'parseAuthHeader' and 'requireAuthenticatedUser' functions are working as expected.
+ * the 'parseAuthorizationHeader' and 'requireAuthenticatedUser' functions are working as expected.
  *
  * @module middleware/security.test
  * @requires jwt JSON Web Token library.
@@ -11,7 +11,7 @@
  * @description
  * A collection of tests for the 'security' module.
  * It includes tests for the following functions:
- * 1. @testsuite 'parseAuthHeader': 
+ * 1. @testsuite 'parseAuthorizationHeader': 
  *      - Ensures it extracts the user from a valid JWT.
  *      - Ensures it does not store a user when no valid JWT exists.
  *      - Ensures it does not store a user when an invalid JWT exists.
@@ -19,7 +19,7 @@
  *      - Throws an 'UnauthorizedError' when no valid user is present.
  *      - Does not throw an error when a valid user is present.
  */
-const { parseAuthHeader, requireAuthenticatedUser } = require('./security')
+const { parseAuthorizationHeader, requireAuthenticatedUser } = require('./security')
 const { UnauthorizedError } = require('../utils/errors')
 const jwt = require('jsonwebtoken')
 const { SECRET_KEY } = require('../config')
@@ -27,12 +27,12 @@ const { SECRET_KEY } = require('../config')
 const mockPayload = { username: 'testuser', password: 'testpass' }
 const mockToken = jwt.sign(mockPayload, SECRET_KEY)
 
-describe('parseAuthHeader() middleware', () => {
+describe('parseAuthorizationHeader() middleware', () => {
     it('should extract the user from a valid JWT', () => {
         const mockRequest = { headers: { authorization: `Bearer ${mockToken}` } }
         const mockResponse = { locals: {} }
 
-        parseAuthHeader(mockRequest, mockResponse, () => {})
+        parseAuthorizationHeader(mockRequest, mockResponse, () => {})
 
         expect(mockResponse.locals.user).toMatchObject(mockPayload)
     })
@@ -41,7 +41,7 @@ describe('parseAuthHeader() middleware', () => {
         const mockRequest = { headers: {} }
         const mockResponse = { locals: {} }
 
-        parseAuthHeader(mockRequest, mockResponse, () => {})
+        parseAuthorizationHeader(mockRequest, mockResponse, () => {})
 
         expect(mockResponse.locals.user).toBeUndefined()
     })
@@ -50,7 +50,7 @@ describe('parseAuthHeader() middleware', () => {
         const mockRequest = { headers: { authorization: `Bearer invalid` } }
         const mockResponse = { locals: {} }
 
-        parseAuthHeader(mockRequest, mockResponse, () => {})
+        parseAuthorizationHeader(mockRequest, mockResponse, () => {})
 
         expect(mockResponse.locals.user).toBeUndefined()
     })
