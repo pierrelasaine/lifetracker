@@ -32,19 +32,17 @@ class User {
      * @throws {UnauthorizedError} If the email doesn't exist or password doesn't match.
      */
     static async login({ email, password }) {
+        if (!email || !password) throw new UnauthorizedError('Field missing')
+
         const result = await database.query(
             `SELECT * FROM users WHERE email = $1`,
             [email]
         )
         const user = result.rows[0]
-        if (!user) {
-          throw new UnauthorizedError('Invalid email/password')
-        }
+        if (!user) throw new UnauthorizedError('Invalid email/password')
 
         const isValidPassword = await bcrypt.compare(password, user.password)
-        if (!isValidPassword) {
-          throw new UnauthorizedError('Invalid email/password')
-        }
+        if (!isValidPassword) throw new UnauthorizedError('Invalid email/password')
     
         const { hashedPassword, ...userWithoutPassword } = user
     
@@ -62,32 +60,30 @@ class User {
      * @returns {Object} The newly registered user's data.
      * @throws {BadRequestError} If email is invalid, username or email is already in use.
      */
-    static async register(credentials) {
-        const { username, password, firstName, lastName, email  } = credentials
+    static async register( credentials ) {
+        const { email, username, firstName, lastName, password  } = credentials
+        if(!email || !username || !firstName || !lastName || !password)
+            throw new BadRequestError('Missing required fields')
 
         const validateEmail = (email) => {
             const regularExpression = /\S+@\S+\.\S+/
             return regularExpression.test(email)
         }
-        if (!validateEmail(email)) {
-            throw new BadRequestError(`Invalid email: ${email}`)
-        }
+        if (!validateEmail(email)) throw new BadRequestError(`Invalid email: ${email}`)
 
         const existingEmail = await database.query(
             `SELECT * FROM users WHERE email = $1`,
             [email]
         )
-        if (existingEmail.rows[0]) {
+        if (existingEmail.rows[0])
             throw new BadRequestError(`An account already exists with email: ${email}`)
-        }
 
         const existingUsername = await database.query(
             `SELECT * FROM users WHERE username = $1`,
             [username]
         )
-        if (existingUsername.rows[0]) {
+        if (existingUsername.rows[0])
             throw new BadRequestError(`An account already exists with username: ${username}`)
-        }
 
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
         const result = await database.query(
@@ -108,15 +104,14 @@ class User {
      * @throws {BadRequestError} If no account exists with provided email.
      */
     static async fetchUserByEmail(email) {
-        const existingEmail = await database.query(
+        const result = await database.query(
             `SELECT * FROM users WHERE email = $1`,
             [email]
         )
-        if (existingEmail.rows[0]) {
-            return existingEmail.rows[0]
-        } else {
-            throw new BadRequestError(`No account exists with email: ${email}`)
-        }
+        const user = result.rows[0]
+        if (!user) throw new BadRequestError(`No account exists with email: ${email}`)
+
+        return user
     }
 }
 
