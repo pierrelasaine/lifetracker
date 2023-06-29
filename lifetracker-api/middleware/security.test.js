@@ -60,10 +60,11 @@ describe('requireAuthenticatedUser() middleware', () => {
     it('throws an `UnauthorizedError when no valid user is present', () => {
         const mockRequest = {}
         const mockResponse = { locals: {} }
+        const next = jest.fn();
 
-        expect(() => {
-            requireAuthenticatedUser(mockRequest, mockResponse, () => {})
-        }).toThrow(UnauthorizedError)
+        requireAuthenticatedUser(mockRequest, mockResponse, next);
+    
+        expect(next).toHaveBeenCalledWith(expect.any(UnauthorizedError));
     })
 
     it('does not throw an error when a valid user is present', () => {
