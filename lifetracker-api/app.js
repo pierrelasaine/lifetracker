@@ -23,25 +23,27 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const { NotFoundError } = require('./utils/errors')
-const { parseAuthHeader, requireAuthenticatedUser } = require('./middleware/security')
+const { parseAuthorizationHeader, requireAuthenticatedUser } = require('./middleware/security')
+const authRoutes = require('./routes/auth')
 
 const app = express()
 
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
-/**
- * @supportqueue
- * is this right??
- * how do I pass in the request, response, next?
- * README.md line 533
- */
-app.use(parseAuthHeader(request, response, next))
-app.use(requireAuthenticatedUser(request, response, next))
+app.use(parseAuthorizationHeader)
+app.use('/auth', authRoutes)
+
+app.use((error, request, response, next) => {
+    console.error(error)
+    const status = error.status || 500
+    response.status(status).json({ error: 'Something went wrong' })
+})
 
 app.get('/', (request, response) => {
     response.status(200).json({ "ping": "pong" })
 })
+
 
 /**
  * @supportqueue
@@ -51,30 +53,6 @@ app.get('/', (request, response) => {
 app.get('*', (request, response, next) => {
     next(new NotFoundError)
 })
-/**
- * alternative??:
- * 
- * // Other middleware...
- *   // 404 middleware
- *  app.use((req, res, next) => {
- *  if (req.url === '/not-found') {
- *      res.status(404).send('Not found')
- *  } else {
- *      next()
- *  }
- *  })
- *
- *  // Generic error handler middleware
- *  app.use((err, req, res, next) => {
- *  // Log the error
- *  console.error(err)
- *
- *  // Send a 500 error response
- *  res.status(500).send('Something went wrong')
- *  })
- * 
- */
-
-console.log(1, app.get('cors'))
+ 
 
 module.exports = app

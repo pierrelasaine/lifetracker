@@ -23,6 +23,7 @@ const credentialsSchema = {
 }
 
 class User {
+    
     /**
      * Attempts to log a user in with provided email and password.
      * @param {Object} credentials - The user's login credentials.
