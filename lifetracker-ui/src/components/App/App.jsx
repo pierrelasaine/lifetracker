@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 const App = () => {
   const [name, setName] = useState("")
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     const email = event.target.email.value
