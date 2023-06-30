@@ -44,7 +44,6 @@ const parseAuthorizationHeader = (request, response, next) => {
  */
 const requireAuthenticatedUser = (request, response, next) => {
     try {
-        console.log(response.locals)
         if (!response.locals.user)
             throw new UnauthorizedError('Not logged in')
             

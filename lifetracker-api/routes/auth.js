@@ -35,7 +35,7 @@ authRouter.get('/me', requireAuthenticatedUser, async (request, response) => {
         const { email } = response.locals.user
         const user = await User.fetchUserByEmail(email)
 
-        response.status(200).json({ token: token, user: user })
+        response.status(200).json({ user: user })
     } catch (error) {
         response.status(error.status).json({ error: error.message })
     }

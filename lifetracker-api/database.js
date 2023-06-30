@@ -22,11 +22,11 @@
 const { getDatabaseUri } = require("./config")
 const { Client } = require("pg")
 
-const databaseUri = getDatabaseUri
+const databaseUri = getDatabaseUri()
 
 // Create a new PostgreSQL client
 const client = new Client({
-  connectionString: databaseUri,
+  connectionString: databaseUri
 })
 
 /**
@@ -38,7 +38,7 @@ const client = new Client({
 const connectToPostgreSQL = async () => {
   try {
     await client.connect()
-    console.log('🚀 Connected to PostgreSQL 🚀')
+    console.log(`🚀 Connected to PostgreSQL 🚀`)
   } catch (error) {
     console.error('🚨Failed to connect to PostgreSQL🚨:', error)
   }

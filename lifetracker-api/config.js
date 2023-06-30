@@ -39,16 +39,15 @@ const IS_TESTING = process.env.NODE_ENV === 'test'
  *
  * @returns {string} - The database URI string.
  */
-const getDatebaseUri = () => {
+const getDatabaseUri = () => {
     const IS_TESTING = process.env.NODE_ENV === 'test'
-    const DATABASE_HOST = process.env.DATABASE_HOST || 'localhost'
-    const DATABASE_PORT = process.env.DATABASE_PORT || 5432
-    const DATABASE_NAME = process.env.DATABASE_NAME || 'lifetracker'
+    const DATABASE_HOST = process.env.DATABASE_HOST
+    const DATABASE_PORT = process.env.DATABASE_PORT
+    let DATABASE_NAME = process.env.DATABASE_NAME
+    if (IS_TESTING) 
+        DATABASE_NAME = process.env.DATABASE_TEST_NAME
 
-    return (IS_TESTING)
-        ? 'postgresql://postgres:postgres@localhost/testingURL'
-        : process.env.DATABASE_URL 
-            || `postgresql://postgres:postgres@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`
+    return process.env.DATABASE_URL || `postgresql://postgres:postgres@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`
 }
 
 module.exports = {
@@ -56,5 +55,5 @@ module.exports = {
     SECRET_KEY,
     BCRYPT_WORK_FACTOR,
     IS_TESTING,
-    getDatebaseUri
+    getDatabaseUri
 }
