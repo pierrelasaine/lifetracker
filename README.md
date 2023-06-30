@@ -357,216 +357,216 @@ Update the `App` component to manage authentication state:
 
 Here are the pieces of functionality that should be built out for the backend:
 
-- [ ] **Project setup**
-  - [ ] First things first, bootstrap the Express application with some essential files and starter code
-  - [ ] Create a `.gitignore` file, an `app.js` file, an `app.test.js` file, and a `server.js` file
-  - [ ] Make sure `node_modules` are added to the `.gitignore` file.
-  - [ ] Add dependencies for `express@next`, `morgan`, `cors`, and `nodemon`
-  - [ ] Install new dependencies for `bcrypt`, `jsonwebtoken`, `colors`, `dotenv`, `pg`
-  - [ ] Commit all work to `git`
-  - [ ] Add a `.env` file to the root of the repo and include the following environment variables
-    - [ ] `PORT` (default to `3001`)
-    - [ ] `SECRET_KEY` (set to a long random string)
-    - [ ] `BCRYPT_WORK_FACTOR` (set to `13`)
-    - [ ] `DATABASE_USER`
-    - [ ] `DATABASE_PASS`
-    - [ ] `DATABASE_HOST`
-    - [ ] `DATABASE_PORT`
-    - [ ] `DATABASE_NAME` - (set to `lifetracker`)
-    - [ ] `DATABASE_TEST_NAME` - (set to `lifetracker_test`)
-  - [ ] Add a `config.test.js` file
-    - [ ] Write tests that check to make sure that:
-      - [ ] `process.env.NODE_ENV` is set to `test` when the test suite is run
-      - [ ] There is an `IS_TESTING` variable that is exported, which should only be true if `process.env.NODE_ENV` is set to `test`
-    - [ ] Write tests to ensure that certain environment variables are exported from the `config.js` file and can be imported:
-      - [ ] `PORT`
-      - [ ] `SECRET_KEY`
-      - [ ] `BCRYPT_WORK_FACTOR`
-      - [ ] `IS_TESTING`
-    - [ ] Write tests to ensure that a `getDatabaseUri` function is exported from the `config.js` file
-      - [ ] The `getDatabaseUri` function should:
-        - [ ] Check to see if a valid `process.env.DATABASE_URL` environment variable exists, and return that if it does.
-        - [ ] When `IS_TESTING` is `true`, the `getDatabaseUri` function should use the test database
-        - [ ] Otherwise, it should combine the proper database environment variables into a database connection string if no `process.env.DATABASE_URL` environment variable exists
-  - [ ] Add a `config.js` file
-    - [ ] Use the `dotenv` package to parse the environment variables from the `.env` file.
-    - [ ] Export each of the environment variables from the `config.js` file until the tests pass
-    - [ ] Write a `getDatabaseUri` function so that all the tests pass
-  - [ ] Commit all work to `git`
-  - [ ] The project should now be ready to go!
-- [ ] **PostgreSQL database**
+- [#] **Project setup**
+  - [x] First things first, bootstrap the Express application with some essential files and starter code
+  - [x] Create a `.gitignore` file, an `app.js` file, an `app.test.js` file, and a `server.js` file
+  - [x] Make sure `node_modules` are added to the `.gitignore` file.
+  - [x] Add dependencies for `express@next`, `morgan`, `cors`, and `nodemon`
+  - [x] Install new dependencies for `bcrypt`, `jsonwebtoken`, `colors`, `dotenv`, `pg`
+  - [x] Commit all work to `git`
+  - [x] Add a `.env` file to the root of the repo and include the following environment variables
+    - [x] `PORT` (default to `3001`)
+    - [x] `SECRET_KEY` (set to a long random string)
+    - [x] `BCRYPT_WORK_FACTOR` (set to `13`)
+    - [x] `DATABASE_USER`
+    - [x] `DATABASE_PASS`
+    - [x] `DATABASE_HOST`
+    - [x] `DATABASE_PORT`
+    - [x] `DATABASE_NAME` - (set to `lifetracker`)
+    - [x] `DATABASE_TEST_NAME` - (set to `lifetracker_test`)
+  - [x] Add a `config.test.js` file
+    - [x] Write tests that check to make sure that:
+      - [x] `process.env.NODE_ENV` is set to `test` when the test suite is run
+      - [x] There is an `IS_TESTING` variable that is exported, which should only be true if `process.env.NODE_ENV` is set to `test`
+    - [x] Write tests to ensure that certain environment variables are exported from the `config.js` file and can be imported:
+      - [x] `PORT`
+      - [x] `SECRET_KEY`
+      - [x] `BCRYPT_WORK_FACTOR`
+      - [x] `IS_TESTING`
+    - [x] Write tests to ensure that a `getDatabaseUri` function is exported from the `config.js` file
+      - [x] The `getDatabaseUri` function should:
+        - [x] Check to see if a valid `process.env.DATABASE_URL` environment variable exists, and return that if it does.
+        - [x] When `IS_TESTING` is `true`, the `getDatabaseUri` function should use the test database
+        - [x] Otherwise, it should combine the proper database environment variables into a database connection string if no `process.env.DATABASE_URL` environment variable exists
+  - [x] Add a `config.js` file
+    - [x] Use the `dotenv` package to parse the environment variables from the `.env` file.
+    - [x] Export each of the environment variables from the `config.js` file until the tests pass
+    - [x] Write a `getDatabaseUri` function so that all the tests pass
+  - [x] Commit all work to `git`
+  - [x] The project should now be ready to go!
+- [x] **PostgreSQL database**
   - Time bring in a PostgreSQL database client as the application's persistence layer
   - Make sure the PostgreSQL server is running
-  - Create two files at the root of the project:
-    - [ ] `lifetracker-schema.sql`
-      - [ ] This script should:
-        - [ ] Create a `users` table with the following columns:
-          - [ ] `id`
-          - [ ] `username`
-          - [ ] `password`
-          - [ ] `first_name`
-          - [ ] `last_name`
-          - [ ] `email`
-          - [ ] `created_at`
-          - [ ] `updated_at`
-        - [ ] Create a `nutrition` table with the following columns:
-          - [ ] `id`
-          - [ ] `name`
-          - [ ] `category`
-          - [ ] `calories`
-          - [ ] `image_url`
-          - [ ] `user_id`
-          - [ ] `created_at`
+  - [x] Create two files at the root of the project:
+    - [x] `lifetracker-schema.sql`
+      - [x] This script should:
+        - [x] Create a `users` table with the following columns:
+          - [x] `id`
+          - [x] `username`
+          - [x] `password`
+          - [x] `first_name`
+          - [x] `last_name`
+          - [x] `email`
+          - [x] `created_at`
+          - [x] `updated_at`
+        - [x] Create a `nutrition` table with the following columns:
+          - [x] `id`
+          - [x] `name`
+          - [x] `category`
+          - [x] `calories`
+          - [x] `image_url`
+          - [x] `user_id`
+          - [x] `created_at`
         - [ ] **Any other tables** that the application might depend on
-    - [ ] `lifetracker.sql`
-      - [ ] This script should:
-        - [ ] 1. Let the user know that they're about to delete the `lifetracker` database and prompt them to confirm that is what they want.
-        - [ ] 2. Drop the `lifetracker` database and then create a new `lifetracker` database, before connecting to the `lifetracker` database.
-        - [ ] 3. It should then run the `lifetracker-schema.sql` file.
-        - [ ] Follow the exact same steps for `1`, `2`, and `3`, but with the `lifetracker_test` database.
-  - [ ] Setup the database by running `psql -f lifetracker.sql`
-  - [ ] Create a new file at the root of the project called `db.js`. In that file:
-    - [ ] Import the `getDatabaseUri` function from the `config.js` file.
-    - [ ] Initialize a new PostgreSQL client with the `pg` package and connect to PostgreSQL using any necessary config variables.
-    - [ ] Connect to PostgreSQL and log a message to the terminal on success or failure.
-    - [ ] Export the connected database client
-  - [ ] Commit all work to `git`
-  - [ ] A database client is now ready to be used!
-- [ ] **Server**
-  - [ ] Build out a bare-bones Express server with a health check route and an adequate middleware pipeline.
-  - [ ] Create a `utils` directory
-    - [ ] In the `utils` directory, create an `errors.js` file.
-    - [ ] Create error classes inside the file that will be used throughout the app.
-  - [ ] In the `app.test.js` file, write tests that:
-    - [ ] Ensure that the Express application responds to `GET` requests to the `/` route with a JSON object of `{ "ping": "pong" }`
-    - [ ] Check that middleware like `morgan` and `cors` exist, along with the JSON `body-parser` middleware from `express`
-    - [ ] Include an `afterAll` hook that calls `await db.end()` so that any open database connections close when all the tests are finished.
-  - [ ] Add code to the `app.js` and `server.js` file to get a simple server running along with responding to `GET` requests to the `/` route
-  - [ ] Create error classes inside the `utils/errors.js` file.
+    - [x] `lifetracker.sql`
+      - [x] This script should:
+        - [x] 1. Let the user know that they're about to delete the `lifetracker` database and prompt them to confirm that is what they want.
+        - [x] 2. Drop the `lifetracker` database and then create a new `lifetracker` database, before connecting to the `lifetracker` database.
+        - [x] 3. It should then run the `lifetracker-schema.sql` file.
+        - [x] Follow the exact same steps for `1`, `2`, and `3`, but with the `lifetracker_test` database.
+  - [x] Setup the database by running `psql -f lifetracker.sql`
+  - [x] *[ ]*Create a new file at the root of the project called `db.js`. In that file:
+    - [x] Import the `getDatabaseUri` function from the `config.js` file.
+    - [x] Initialize a new PostgreSQL client with the `pg` package and connect to PostgreSQL using any necessary config variables.
+    - [x] Connect to PostgreSQL and log a message to the terminal on success or failure.
+    - [x] Export the connected database client
+  - [x] Commit all work to `git`
+  - [x] A database client is now ready to be used!
+- [x] **Server**
+  - [x] Build out a bare-bones Express server with a health check route and an adequate middleware pipeline.
+  - [x] Create a `utils` directory
+    - [x] In the `utils` directory, create an `errors.js` file.
+    - [x] Create error classes inside the file that will be used throughout the app.
+  - [x] In the `app.test.js` file, write tests that:
+    - [x] Ensure that the Express application responds to `GET` requests to the `/` route with a JSON object of `{ "ping": "pong" }`
+    - [x] Check that middleware like `morgan` and `cors` exist, along with the JSON `body-parser` middleware from `express`
+    - [x] Include an `afterAll` hook that calls `await db.end()` so that any open database connections close when all the tests are finished.
+  - [x] Add code to the `app.js` and `server.js` file to get a simple server running along with responding to `GET` requests to the `/` route
+  - [x] Create error classes inside the `utils/errors.js` file.
   - [ ] Add `404` and generic error handler middleware to the `app.js` file.
-  - [ ] In the `server.js` file:
-    - [ ] Import the Express app and the `config.js` file
-    - [ ] Have the `app` listen on the port specified by `config.PORT`.
-  - [ ] Commit all work to `git`
-  - [ ] Test out the fancy new Express server by starting it up in a new terminal window!
-- [ ] **Common Test Configuration**
-  - [ ] It would probably be helpful to create some common test functions that can be used throughout the application's testing suite.
-  - [ ] Create a new directory called `tests`
-  - [ ] Now, touch a new file at `tests/common.js`
-    - [ ] In that file:
-      - [ ] Import the `db` client
-      - [ ] Create and export four functions:
-        - [ ] `commonBeforeAll`
+  - [x] In the `server.js` file:
+    - [x] Import the Express app and the `config.js` file
+    - [x] Have the `app` listen on the port specified by `config.PORT`.
+  - [x] Commit all work to `git`
+  - [x] Test out the fancy new Express server by starting it up in a new terminal window!
+- [x] **Common Test Configuration**
+  - [x] It would probably be helpful to create some common test functions that can be used throughout the application's testing suite.
+  - [x] Create a new directory called `tests`
+  - [x] Now, touch a new file at `tests/common.js`
+    - [x] In that file:
+      - [x] Import the `db` client
+      - [x] Create and export four functions:
+        - [x] `commonBeforeAll`
           - [ ] Actions that should happen before any tests in a particular file run.
           - [ ] This should include things like executing queries that delete all items from any tables in the test database that might have been added during testing
-        - [ ] `commonBeforeEach`
+        - [x] `commonBeforeEach`
           - [ ] Actions that should happen before any **single** test in a particular file runs.
           - [ ] This should include things like starting a database transaction
-        - [ ] `commonAfterEach`
+        - [x] `commonAfterEach`
           - [ ] Actions that should happen after any **single** test in a particular file runs.
           - [ ] This should include things like rolling back any database actions before they're committed
-        - [ ] `commonAfterAll`
+        - [x] `commonAfterAll`
           - [ ] Actions that should occur after all tests in a particular file run.
           - [ ] This should include things like ending any open database client connections
-  - [ ] Commit all work to `git`
+  - [x] Commit all work to `git`
 - [ ] **Authentication**
-  - [ ] Go ahead and build out a full-fledged authentication flow using PostgreSQL, `bcrypt`, and JSON Web Tokens. For it all to work, we'll need a `User` model, a `security` middleware, some `tokens` utility functions, and the appropriate `auth` routes.
-  - [ ] Add new directories for `models`, `routes`, and `middleware`
-  - [ ] The **User** model
-    - [ ] In the `models` directory, create two new files: `models/user.js` and `models/user.test.js`
-      - [ ] The `User` model should have **at least** the following static methods:
-        - [ ] `login`
-        - [ ] `register`
-        - [ ] `fetchUserByEmail`
-    - [ ] In the `models/user.test.js` file:
-      - [ ] Test the `login` method. Write test cases for:
-        - [ ] User can login successfully with proper credentials
-        - [ ] Unknown email throws `UnauthorizedError`
-        - [ ] Invalid credentials throws `UnauthorizedError`
-      - [ ] Test the `register` method. Write test cases for:
-        - [ ] User can successfully register with proper credentials
-        - [ ] Registering with duplicate email throws `BadRequestError`
-        - [ ] Registering with duplicate username throws `BadRequestError`
-        - [ ] Registering with invalid email throws `BadRequestError`
-      - [ ] Test the `fetchUserByEmail` method:. Write test cases for:
-        - [ ] A valid email returns a user from the database
-        - [ ] Invalid emails are handled correctly
-      - [ ] It will probably be important to use the `beforeAll`, `afterAll`, `beforeEach`, and `afterEach` hooks to add and delete users from the database before running the tests
-    - [ ] In the `models/user.js` file:
-      - [ ] Import the `bcrypt` package, the `db` client, and the app `config`.
-      - [ ] Implement the features outlined in the tests until they're all passing.
-  - [ ] Commit all work to `git`
-  - [ ] The **tokens** utility functions
-    - [ ] In the `utils` directory, create two new files: `utils/tokens.js` and `utils/tokens.test.js`
-      - [ ] At the bare minimum, two functions will be needed:
-        - [ ] One that accepts a JSON payload as an argument and converts it into a JWT
-        - [ ] One that accepts a JWT as an argument, validates it, and returns the JSON payload encoded within - if it's valid
-    - [ ] In the `utils/tokens.test.js` file:
-      - [ ] Write test cases for:
-        - [ ] Can create valid JWT tokens for user payloads
-        - [ ] Can extract a payload from a valid JWT with the correct secret
-        - [ ] No payload gets returned when invalid tokens are parsed
-    - [ ] In the `utils/tokens.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-  - [ ] Commit all work to `git`
-  - [ ] The **security** middleware
-    - [ ] In the `middleware` directory, create two new files: `middleware/security.js` and `middleware/security.test.js`
-      - [ ] One middleware will be responsible for extracting a user from a valid JWT in the request:
-        - [ ] Checking the `Authentication` header of each request for the existence of a JWT.
-        - [ ] If one exists, it should extract the token, validate it, extract the encoded JSON payload, and attach it to the response's `locals` property
-      - [ ] One middleware will be responsible for ensuring that an authenticated user exists:
-        - [ ] Checking that a valid user exists on the response's `locals` property
-        - [ ] If one does, the middleware should simply call next
-        - [ ] If no valid user exists, it should throw an `UnauthorizedError`
-    - [ ] In the `middleware/security.test.js` file:
-      - [ ] Test the `Authentication` header parsing middleware
-        - [ ] Write test cases for:
-          - [ ] Extracts user from valid JWT in `Authentication` header
-          - [ ] No user is stored when no valid JWT exists in the `Authentication` header
-          - [ ] No user is stored when an invalid JWT is in the `Authentication` header
-      - [ ] Test the middleware that ensures an authenticated user exists
-        - [ ] Write test cases for:
-          - [ ] Doesn't throw an error when a valid user is present
-          - [ ] Throws an `UnauthorizedError` when no valid user is present
-    - [ ] In the `middleware/security.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-    - [ ] In the `app.js` file, add the `Authentication` header parsing middleware to the Express app's middleware pipeline
-  - [ ] Commit all work to `git`
+  - [x] Go ahead and build out a full-fledged authentication flow using PostgreSQL, `bcrypt`, and JSON Web Tokens. For it all to work, we'll need a `User` model, a `security` middleware, some `tokens` utility functions, and the appropriate `auth` routes.
+  - [x] Add new directories for `models`, `routes`, and `middleware`
+  - [x] The **User** model
+    - [x] In the `models` directory, create two new files: `models/user.js` and `models/user.test.js`
+      - [x] The `User` model should have **at least** the following static methods:
+        - [x] `login`
+        - [x] `register`
+        - [x] `fetchUserByEmail`
+    - [x] In the `models/user.test.js` file:
+      - [x] Test the `login` method. Write test cases for:
+        - [x] User can login successfully with proper credentials
+        - [x] Unknown email throws `UnauthorizedError`
+        - [x] Invalid credentials throws `UnauthorizedError`
+      - [x] Test the `register` method. Write test cases for:
+        - [x] User can successfully register with proper credentials
+        - [x] Registering with duplicate email throws `BadRequestError`
+        - [x] Registering with duplicate username throws `BadRequestError`
+        - [x] Registering with invalid email throws `BadRequestError`
+      - [x] Test the `fetchUserByEmail` method:. Write test cases for:
+        - [x] A valid email returns a user from the database
+        - [x] Invalid emails are handled correctly
+      - [x] It will probably be important to use the `beforeAll`, `afterAll`, `beforeEach`, and `afterEach` hooks to add and delete users from the database before running the tests
+    - [x] In the `models/user.js` file:
+      - [x] Import the `bcrypt` package, the `db` client, and the app `config`.
+      - [x] Implement the features outlined in the tests until they're all passing.
+  - [x] Commit all work to `git`
+  - [x] The **tokens** utility functions
+    - [x] In the `utils` directory, create two new files: `utils/tokens.js` and `utils/tokens.test.js`
+      - [x] At the bare minimum, two functions will be needed:
+        - [x] One that accepts a JSON payload as an argument and converts it into a JWT
+        - [x] One that accepts a JWT as an argument, validates it, and returns the JSON payload encoded within - if it's valid
+    - [x] In the `utils/tokens.test.js` file:
+      - [x] Write test cases for:
+        - [x] Can create valid JWT tokens for user payloads
+        - [x] Can extract a payload from a valid JWT with the correct secret
+        - [x] No payload gets returned when invalid tokens are parsed
+    - [x] In the `utils/tokens.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+  - [x] Commit all work to `git`
+  - [x] The **security** middleware
+    - [x] In the `middleware` directory, create two new files: `middleware/security.js` and `middleware/security.test.js`
+      - [x] One middleware will be responsible for extracting a user from a valid JWT in the request:
+        - [x] Checking the `Authentication` header of each request for the existence of a JWT.
+        - [x] If one exists, it should extract the token, validate it, extract the encoded JSON payload, and attach it to the response's `locals` property
+      - [x] One middleware will be responsible for ensuring that an authenticated user exists:
+        - [x] Checking that a valid user exists on the response's `locals` property
+        - [x] If one does, the middleware should simply call next
+        - [x] If no valid user exists, it should throw an `UnauthorizedError`
+    - [x] In the `middleware/security.test.js` file:
+      - [x] Test the `Authentication` header parsing middleware
+        - [x] Write test cases for:
+          - [x] Extracts user from valid JWT in `Authentication` header
+          - [x] No user is stored when no valid JWT exists in the `Authentication` header
+          - [x] No user is stored when an invalid JWT is in the `Authentication` header
+      - [x] Test the middleware that ensures an authenticated user exists
+        - [x] Write test cases for:
+          - [x] Doesn't throw an error when a valid user is present
+          - [x] Throws an `UnauthorizedError` when no valid user is present
+    - [x] In the `middleware/security.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+    - [x] In the `app.js` file, add the `Authentication` header parsing middleware to the Express app's middleware pipeline
+  - [x] Commit all work to `git`
   - [ ] The **/auth** routes
-    - [ ] In the `routes` directory, create two new files: `routes/auth.js` and `routes/auth.test.js`
+    - [x] In the `routes` directory, create two new files: `routes/auth.js` and `routes/auth.test.js`
       - [ ] A new Express router should be created. It should handle:
         - [ ] A `GET` request to the `/me` endpoint
           - [ ] It should send a JSON response back to the client with the user info like so: `{ "user": { "email": "user@gmail.com", ... } }`
-        - [ ] A `POST` request to the `/login` endpoint
-          - [ ] It should accept a request body with `email` and `password` keys
-          - [ ] It should send a JSON response back to the client with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
-        - [ ] A `POST` request to the `/register` endpoint
-          - [ ] It should accept a request body with `email`, `username`, `firstName`, `lastName`, and `password` keys
+        - [x] A `POST` request to the `/login` endpoint
+          - [x] It should accept a request body with `email` and `password` keys
+          - [x] It should send a JSON response back to the client with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
+        - [x] A `POST` request to the `/register` endpoint
+          - [x] It should accept a request body with `email`, `username`, `firstName`, `lastName`, and `password` keys
           - [ ] It should send a JSON response back to the client with a `201` status code, along with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
-      - [ ] It should be mounted at the `/auth` endpoint in the `app.js` file
+      - [x] It should be mounted at the `/auth` endpoint in the `app.js` file
     - [ ] In the `routes/auth.test.js` file:
-      - [ ] Test the `POST /auth/login` endpoint
-        - [ ] Write test cases for:
-          - [ ] Allows user to register with valid credentials and responds with JSON containing a valid token and user in the "token" and "user" fields
-          - [ ] Throws `UnauthorizedError` when user doesn't exist in database
-          - [ ] Throws `UnauthorizedError` when user provides wrong password
-          - [ ] Throws `BadRequestError` when user doesn't provide password
-          - [ ] Throws `BadRequestError` when user doesn't provide email
-      - [ ] Test the `POST /auth/register` endpoint
-        - [ ] Write test cases for:
-          - [ ] Allows user to login successfully with valid credentials and responds with a `201` status code, along with JSON containing a valid token and user in the "token" and "user" fields
-          - [ ] Throws `BadRequestError` when user doesn't provide one of the required fields
-          - [ ] Throws `BadRequestError` when user provides email that already exists
-          - [ ] Throws `BadRequestError` when user provides username that already exists
+      - [x] Test the `POST /auth/login` endpoint
+        - [x] Write test cases for:
+          - [x] Allows user to register with valid credentials and responds with JSON containing a valid token and user in the "token" and "user" fields
+          - [x] Throws `UnauthorizedError` when user doesn't exist in database
+          - [x] Throws `UnauthorizedError` when user provides wrong password
+          - [x] Throws `BadRequestError` when user doesn't provide password
+          - [x] Throws `BadRequestError` when user doesn't provide email
+      - [x] Test the `POST /auth/register` endpoint
+        - [x] Write test cases for:
+          - [x] Allows user to login successfully with valid credentials and responds with a `201` status code, along with JSON containing a valid token and user in the "token" and "user" fields
+          - [x] Throws `BadRequestError` when user doesn't provide one of the required fields
+          - [x] Throws `BadRequestError` when user provides email that already exists
+          - [x] Throws `BadRequestError` when user provides username that already exists
       - [ ] Test the `POST /auth/me` endpoint
         - [ ] Write test cases for:
           - [ ] Provides the user with their user info when a valid JWT is present in the `Authentication` header of the request
           - [ ] Throws an `UnauthorizedError` when no valid user is logged in
     - [ ] In the `routes/auth.js` file:
-      - [ ] Create a new Express router
+      - [x] Create a new Express router
       - [ ] Implement the features outlined in the tests until they're all passing
-    - [ ] In the `app.js` file:
-    - [ ] Mount the router at the `/auth` endpoint
+    - [x] In the `app.js` file:
+      - [x] Mount the router at the `/auth` endpoint
   - [ ] Commit all work to `git`
   - [ ] There should now be a full-fledged authentication system in place!
 - [ ] **Resources and Permissions**
