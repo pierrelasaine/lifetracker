@@ -12,7 +12,7 @@
  * 2. The various exported environment variables (`PORT`, `SECRET_KEY`, `BCRYPT_WORK_FACTOR`, `IS_TESTING`).
  * 3. The `getDatabaseUri` function, which generates a database URI depending on the environment.
  */
-const { PORT, SECRET_KEY, BCRYPT_WORK_FACTOR, IS_TESTING, getDatebaseUri } = require('./config')
+const { PORT, SECRET_KEY, BCRYPT_WORK_FACTOR, IS_TESTING, getDatabaseUri } = require('./config')
 
 describe('Testing Environment Suite', () => {
     it('checks that the environment is set to test', () => {
@@ -42,7 +42,7 @@ describe('config.js', () => {
     })
 
     it('should export getDatabaseUri function', () => {
-        expect(getDatebaseUri).toBeDefined()
+        expect(getDatabaseUri).toBeDefined()
     })
 })
 
@@ -51,7 +51,7 @@ describe('getDatabaseUri', () => {
         process.env.NODE_ENV = 'mockProduction'
         process.env.DATABASE_URL = 'mockURL'
 
-        const uri = getDatebaseUri()
+        const uri = getDatabaseUri()
 
         expect(uri).toBe('mockURL')
     })
@@ -60,9 +60,9 @@ describe('getDatabaseUri', () => {
         process.env.NODE_ENV = 'test'
         process.env.DATABASE_URL = 'mockURL'
 
-        const uri = getDatebaseUri()
+        const uri = getDatabaseUri()
 
-        expect(uri).toBe('postgresql://postgres:postgres@localhost/testingURL')
+        expect(uri).toBe('postgresql://postgres:postgres@localhost:5432/lifetracker_test')
     })
 
     it(`should combine the database environment variables into a connection string 
@@ -73,7 +73,7 @@ describe('getDatabaseUri', () => {
         process.env.DATABASE_PORT = '5432'
         process.env.DATABASE_NAME = 'mockDBName'
 
-        const uri = getDatebaseUri()
+        const uri = getDatabaseUri()
 
         expect(uri).toBe('postgresql://postgres:postgres@localhost:5432/mockDBName')
     })

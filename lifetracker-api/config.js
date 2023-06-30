@@ -44,9 +44,10 @@ const getDatabaseUri = () => {
     const DATABASE_HOST = process.env.DATABASE_HOST
     const DATABASE_PORT = process.env.DATABASE_PORT
     let DATABASE_NAME = process.env.DATABASE_NAME
-    if (IS_TESTING) 
+    if (IS_TESTING) { 
         DATABASE_NAME = process.env.DATABASE_TEST_NAME
-
+        return `postgresql://postgres:postgres@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`
+    } 
     return process.env.DATABASE_URL || `postgresql://postgres:postgres@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`
 }
 
