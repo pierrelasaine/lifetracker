@@ -1,151 +1,118 @@
 /**
- * @fileoverview Test file for User model functions. The test suite ensures that the 
- * 'login', 'register', and 'fetchUserByEmail' methods are working as expected.
- *
+ * @fileoverview Test suite for the 'User' model of a user management system.
  * @module models/users.test
- * @requires dotenv Configuration module that loads environment variables.
- * @requires users The User model module.
- * @requires database The database connection module.
- * @requires utils/errors Custom error classes module.
- *
- * @description
- * A collection of tests for the 'User' model.
- * The test suite includes:
- * 1. @testsuite 'login': 
- *      - Ensures it logs in successfully with proper credentials.
- *      - Ensures it throws UnauthorizedError if email is unknown.
- *      - Ensures it throws UnauthorizedError if password is invalid.
- * 2. @testsuite 'register': 
- *      - Ensures it registers successfully with proper credentials.
- *      - Ensures it throws BadRequestError if email is duplicate.
- *      - Ensures it throws BadRequestError if username is duplicate.
- *      - Ensures it throws BadRequestError if email is invalid.
- * 3. @testsuite 'fetchUserByEmail': 
- *      - Ensures it returns a user from the database with a valid email.
- *      - Ensures it handles invalid emails correctly by throwing a BadRequestError.
+ * @requires dotenv - Module to load environment variables for the test setup.
+ * @requires ./users - The User model module to be tested.
+ * @requires ../database - Database module to set up and tear down test data.
+ * @requires ../utils/errors - Error classes to be used in tests.
  */
+
 require('dotenv').config()
 const User = require('./users')
 const database = require('../database')
 const { UnauthorizedError, BadRequestError } = require('../utils/errors')
 
+const knownUser = {
+    username: 'mockKnownUsername',
+    hashedPassword: process.env.MOCK_HASHED_PASSWORD,
+    firstName: 'mockFirstName',
+    lastName: 'mockLastName',
+    email: 'valid@known.mock'
+}
+
 describe('User', () => {
     beforeEach(async () => {
-        const username = 'mockKnownUsername'
-        const hashedPassword = process.env.MOCK_HASHED_PASSWORD
-        const firstName = 'mockFirstName'
-        const lastName = 'mockLastName'
-        const email = 'valid@known.mock'
-
         await database.query(
             `INSERT INTO users (username, password, first_name, last_name, email)
-                VALUES ($1, $2, $3, $4, $5)
-                RETURNING id, username, first_name, last_name, email`,
-            [username, hashedPassword, firstName, lastName, email]
+                VALUES ($1, $2, $3, $4, $5)`,
+            [
+                knownUser.username,
+                knownUser.hashedPassword,
+                knownUser.firstName,
+                knownUser.lastName,
+                knownUser.email
+            ]
         )
     })
 
-    afterEach(async () => {
-        await database.query('DELETE FROM users')
-    })
+    afterEach(async () => await database.query('DELETE FROM users'))
 
-    afterAll(async () => {
-        await database.end()
-    })
+    afterAll(async () => await database.end())
 
     describe('login', () => {
-        it('should login successfully with proper credentials', async () => {
-            const result = await User.login({ 
-                email: 'valid@known.mock', 
-                password: 'mockPassword' 
+        it('logs in with correct credentials', async () => {
+            const result = await User.login({
+                email: knownUser.email,
+                password: 'mockPassword'
             })
-
             expect(result).toBeDefined()
-            expect(result.email).toEqual('valid@known.mock')
+            expect(result.email).toBe(knownUser.email)
         })
 
-        it('should throw UnauthorizedError if email is unknown', async () => {
-            await expect(User.login({
-                email: 'valid@unknown.mock', 
-                password: 'mockPassword' 
-            }))
-                .rejects
-                .toThrow(UnauthorizedError)
+        it('throws UnauthorizedError with unknown email', async () => {
+            await expect(
+                User.login({
+                    email: 'unknown@unknown.mock',
+                    password: 'mockPassword'
+                })
+            ).rejects.toThrow(UnauthorizedError)
         })
 
-        it('should throw UnauthorizedError if password is invalid', async () => {
-            await expect(User.login({ 
-                email: 'valid@known.mock', 
-                password: 'mockInvalid' 
-            }))
-                .rejects
-                .toThrow(UnauthorizedError)
+        it('throws UnauthorizedError with incorrect password', async () => {
+            await expect(
+                User.login({
+                    email: knownUser.email,
+                    password: 'mockWrongPassword'
+                })
+            ).rejects.toThrow(UnauthorizedError)
         })
     })
 
     describe('register', () => {
-        it('should register successfully with proper credentials', async () => {
-            const result = await User.register({
-                username: 'mockUnknownUsername',
-                password: 'mockPassword',
-                firstName: 'mockFirstName',
-                lastName: 'mockLastName',
-                email: 'valid@unknown.mock'
-            })
+        const newUser = {
+            username: 'mockNewUsername',
+            password: 'mockPassword',
+            firstName: 'mockFirstName',
+            lastName: 'mockLastName',
+            email: 'valid@new.mock'
+        }
 
+        it('registers with valid credentials', async () => {
+            const result = await User.register(newUser)
             expect(result).toBeDefined()
-            expect(result.email).toEqual('valid@unknown.mock')
+            expect(result.email).toBe(newUser.email)
         })
 
-        it('should throw BadRequestError if email is duplicate', async () => {
-            await expect(User.register({
-                username: 'mockUnknownUsername',
-                password: 'mockPassword',
-                firstName: 'mockFirstName',
-                lastName: 'mockLastName',
-                email: 'valid@known.mock'
-            }))
-                .rejects
-                .toThrow(BadRequestError)
+        it('throws BadRequestError with duplicate email', async () => {
+            await expect(
+                User.register({ ...newUser, email: knownUser.email })
+            ).rejects.toThrow(BadRequestError)
         })
 
-        it('should throw BadRequestError if username is duplicate', async () => {
-            await expect(User.register({
-                username: 'mockKnownUsername',
-                password: 'mockPassword',
-                firstName: 'mockFirstName',
-                lastName: 'mockLastName',
-                email: 'valid@unknown.mock'
-            }))
-                .rejects
-                .toThrow(BadRequestError)   
+        it('throws BadRequestError with duplicate username', async () => {
+            await expect(
+                User.register({ ...newUser, username: knownUser.username })
+            ).rejects.toThrow(BadRequestError)
         })
 
-        it('should throw BadRequestError if email is invalid', async () => {
-            await expect(User.register({
-                username: 'mockUnknownUsername',
-                password: 'mockPassword',
-                firstName: 'mockFirstName',
-                lastName: 'mockLastName',
-                email: 'invalidUnknown.mock'
-            }))
-                .rejects
-                .toThrow(BadRequestError) 
+        it('throws BadRequestError with invalid email', async () => {
+            await expect(
+                User.register({ ...newUser, email: 'invalidUnknown.mock' })
+            ).rejects.toThrow(BadRequestError)
         })
     })
 
     describe('fetchUserByEmail', () => {
-        it('should return a user from the database with a valid email', async () => {
-            const user = await User.fetchUserByEmail('valid@known.mock')
-
+        it('returns user with valid email', async () => {
+            const user = await User.fetchUserByEmail(knownUser.email)
             expect(user).toBeDefined()
-            expect(user.email).toEqual('valid@known.mock')
+            expect(user.email).toBe(knownUser.email)
         })
 
-        it('should handle invalid emails correctly', async () => {
-            await expect(User.fetchUserByEmail('invalid@unknown.mock'))
-                .rejects
-                .toThrow(BadRequestError)
+        it('throws BadRequestError with invalid email', async () => {
+            await expect(
+                User.fetchUserByEmail('invalid@unknown.mock')
+            ).rejects.toThrow(BadRequestError)
         })
     })
 })

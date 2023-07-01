@@ -1,56 +1,44 @@
 /**
- * @fileoverview This module contains middleware functions for parsing authentication headers 
- * and requiring authenticated users in a Node.js Express application.
- * 
+ * @fileoverview Module handling the middleware for authentication in an Express application.
  * @module middleware/security
- * @requires config The configuration module with secret key.
- * @requires tokens The token utility module for token validation.
- * @requires errors The errors module for throwing Unauthorized errors.
- * @exports parseAuthorizationHeader
- * @exports requireAuthenticatedUser
+ * @requires module:../config - Contains the application secret key for token validation.
+ * @requires module:../utils/tokens - Handles token validation.
+ * @requires module:../utils/errors - Defines custom error types for the application.
  */
+
 const { SECRET_KEY } = require('../config')
 const { validateToken } = require('../utils/tokens')
 const { UnauthorizedError } = require('../utils/errors')
 
 /**
- * Middleware function to parse the authorization header.
- * Extracts the token from the authorization header, validates the token and stores the user
- * in the response locals. If no token is present, it does not store a user.
- * @param {Object} request The Express request object.
- * @param {Object} response The Express response object.
- * @param {Function} next The next middleware function.
- * @returns {Function} The next middleware function.
+ * @function parseAuthorizationHeader
+ * @description Middleware extracting the token from the authorization header, validating it, and storing the user in the response.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Callback to the next middleware function.
+ * @returns {Function} next - Calls the next middleware function.
  */
-const parseAuthorizationHeader = (request, response, next) => {
-    const token = request.headers.authorization?.split(' ')[1]
-    if (token) {
-        const email = validateToken(token, SECRET_KEY)
-        response.locals.user = (email)? email : undefined
-    } else {
-        response.locals.user = undefined
-    }
+const parseAuthorizationHeader = (req, res, next) => {
+    const authHeader = req.headers.authorization
+    const token = authHeader ? authHeader.split(' ')[1] : null
+    res.locals.user = token ? validateToken(token, SECRET_KEY) : undefined
     return next()
 }
 
 /**
- * Middleware function to validate the presence of authenticated user.
- * Throws an UnauthorizedError if no valid user is present in the response locals.
- * @param {Object} request The Express request object.
- * @param {Object} response The Express response object.
- * @param {Function} next The next middleware function.
- * @returns {Function} The next middleware function.
- * @throws {UnauthorizedError} If no valid user is present in the response locals.
+ * @function requireAuthenticatedUser
+ * @description Middleware to validate the presence of authenticated user. Throws UnauthorizedError if no valid user.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Callback to the next middleware function.
+ * @returns {Function} next - Calls the next middleware function.
+ * @throws {module:../utils/errors.UnauthorizedError} - If no valid user is present.
  */
-const requireAuthenticatedUser = (request, response, next) => {
-    try {
-        if (!response.locals.user)
-            throw new UnauthorizedError('Not logged in')
-            
-        return next()
-    } catch (error) {
-        return next(error)
-    }
+const requireAuthenticatedUser = (req, res, next) => {
+    if (!res.locals.user)
+        return next(new UnauthorizedError('Not logged in'))
+
+    return next()
 }
 
 module.exports = {
