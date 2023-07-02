@@ -22,21 +22,27 @@ describe('parseAuthorizationHeader', () => {
     it('extracts the user from a valid JWT', () => {
         const req = { headers: { authorization: `Bearer ${mockToken}` } }
         const res = { locals: {} }
+
         parseAuthorizationHeader(req, res, () => {})
+
         expect(res.locals.user).toMatchObject(mockPayload)
     })
 
     it('does not store a user when no valid JWT exists', () => {
         const req = { headers: {} }
         const res = { locals: {} }
+
         parseAuthorizationHeader(req, res, () => {})
+
         expect(res.locals.user).toBeUndefined()
     })
 
     it('does not store a user when an invalid JWT exists', () => {
         const req = { headers: { authorization: 'Bearer invalid' } }
         const res = { locals: {} }
+
         parseAuthorizationHeader(req, res, () => {})
+
         expect(res.locals.user).toBeNull()
     })
 })
@@ -46,7 +52,9 @@ describe('requireAuthenticatedUser', () => {
         const req = {}
         const res = { locals: {} }
         const next = jest.fn()
+
         requireAuthenticatedUser(req, res, next)
+
         expect(next).toHaveBeenCalledWith(expect.any(UnauthorizedError))
     })
 
@@ -54,7 +62,9 @@ describe('requireAuthenticatedUser', () => {
         const req = {}
         const res = { locals: { user: mockPayload } }
         const next = jest.fn()
+
         requireAuthenticatedUser(req, res, next)
+        
         expect(next).toHaveBeenCalled()
     })
 })

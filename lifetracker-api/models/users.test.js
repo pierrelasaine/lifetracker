@@ -47,6 +47,7 @@ describe('User', () => {
                 email: knownUser.email,
                 password: 'mockPassword'
             })
+
             expect(result).toBeDefined()
             expect(result.email).toBe(knownUser.email)
         })
@@ -81,6 +82,7 @@ describe('User', () => {
 
         it('registers with valid credentials', async () => {
             const result = await User.register(newUser)
+
             expect(result).toBeDefined()
             expect(result.email).toBe(newUser.email)
         })
@@ -107,6 +109,7 @@ describe('User', () => {
     describe('fetchUserByEmail', () => {
         it('returns user with valid email', async () => {
             const user = await User.fetchUserByEmail(knownUser.email)
+            
             expect(user).toBeDefined()
             expect(user.email).toBe(knownUser.email)
         })
