@@ -21,7 +21,9 @@ const { UnauthorizedError } = require('../utils/errors')
 const parseAuthorizationHeader = (req, res, next) => {
     const authHeader = req.headers.authorization
     const token = authHeader ? authHeader.split(' ')[1] : null
+    
     res.locals.user = token ? validateToken(token, SECRET_KEY) : undefined
+
     return next()
 }
 
@@ -32,7 +34,7 @@ const parseAuthorizationHeader = (req, res, next) => {
  * @param {Object} res - Express response object.
  * @param {Function} next - Callback to the next middleware function.
  * @returns {Function} next - Calls the next middleware function.
- * @throws {module:../utils/errors.UnauthorizedError} - If no valid user is present.
+ * @throws {UnauthorizedError} - If no valid user is present.
  */
 const requireAuthenticatedUser = (req, res, next) => {
     if (!res.locals.user)

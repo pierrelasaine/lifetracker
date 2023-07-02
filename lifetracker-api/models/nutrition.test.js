@@ -9,6 +9,7 @@
 const Nutrition = require('./nutrition')
 const db = require('../db')
 const { BadRequestError, NotFoundError } = require('../utils/errors')
+const { createUser, createEntry } = require('../utils/aux-utils')
 
 const knownUser = {
     username: 'mockKnownUsername',
@@ -33,47 +34,13 @@ const entry = {
     image_url: 'http://example.com'
 }
 
-const createUserAndEntry = async (user, entry) => {
-    const {
-        rows: [{ id: userId }]
-    } = await db.query(
-        `
-        INSERT INTO users (username, password, first_name, last_name, email)
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING id
-        `,
-        [
-            user.username,
-            user.hashedPassword,
-            user.firstName,
-            user.lastName,
-            user.email
-        ]
-    )
-
-    const {
-        rows: [{ id: nutritionId }]
-    } = await db.query(
-        `
-        INSERT INTO nutrition (name, category, calories, image_url, user_id)
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING id
-        `,
-        [entry.name, entry.category, entry.calories, entry.image_url, userId]
-    )
-
-    return { userId, nutritionId }
-}
-
 describe('Nutrition', () => {
     let userId
     let nutritionId
 
     beforeEach(async () => {
-        const { userId: newUserId, nutritionId: newNutritionId } =
-            await createUserAndEntry(knownUser, entry)
-        userId = newUserId
-        nutritionId = newNutritionId
+        userId = await createUser(knownUser)
+        nutritionId = await createEntry(entry, userId)
     })
 
     afterEach(async () => {
