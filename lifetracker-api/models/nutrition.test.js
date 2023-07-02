@@ -126,7 +126,8 @@ describe('Nutrition', () => {
         })
 
         it('does not include any nutrition from other users', async () => {
-            await createUserAndEntry(otherUser, entry)
+            otherUserId = await createUser(otherUser)
+            await createEntry(entry, otherUserId)
             const nutritionList = await Nutrition.listNutritionForUser(userId)
 
             const otherUserNutrition = nutritionList.filter(
