@@ -25,6 +25,7 @@ const cors = require('cors')
 const { NotFoundError } = require('./utils/errors')
 const { parseAuthorizationHeader, requireAuthenticatedUser } = require('./middleware/security')
 const authRoutes = require('./routes/auth')
+const nutritionRoutes = require('./routes/nutrition')
 
 const app = express()
 
@@ -33,11 +34,12 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use(parseAuthorizationHeader)
 app.use('/auth', authRoutes)
+app.use('/nutrition', nutritionRoutes)
 
 app.use((error, request, response, next) => {
     console.error(error)
     const status = error.status || 500
-    response.status(status).json({ error: 'Something went wrong' })
+    response.status(status).json({ error: error.message || 'Something went wrong!' })
 })
 
 app.get('/', (request, response) => {
