@@ -457,17 +457,17 @@ Here are the pieces of functionality that should be built out for the backend:
       - [x] Import the `db` client
       - [x] Create and export four functions:
         - [x] `commonBeforeAll`
-          - [ ] Actions that should happen before any tests in a particular file run.
-          - [ ] This should include things like executing queries that delete all items from any tables in the test database that might have been added during testing
+          - [x] Actions that should happen before any tests in a particular file run.
+          - [x] This should include things like executing queries that delete all items from any tables in the test database that might have been added during testing
         - [x] `commonBeforeEach`
-          - [ ] Actions that should happen before any **single** test in a particular file runs.
-          - [ ] This should include things like starting a database transaction
+          - [x] Actions that should happen before any **single** test in a particular file runs.
+          - [x] This should include things like starting a database transaction
         - [x] `commonAfterEach`
-          - [ ] Actions that should happen after any **single** test in a particular file runs.
-          - [ ] This should include things like rolling back any database actions before they're committed
+          - [x] Actions that should happen after any **single** test in a particular file runs.
+          - [x] This should include things like rolling back any database actions before they're committed
         - [x] `commonAfterAll`
-          - [ ] Actions that should occur after all tests in a particular file run.
-          - [ ] This should include things like ending any open database client connections
+          - [x] Actions that should occur after all tests in a particular file run.
+          - [x] This should include things like ending any open database client connections
   - [x] Commit all work to `git`
 - [ ] **Authentication**
   - [x] Go ahead and build out a full-fledged authentication flow using PostgreSQL, `bcrypt`, and JSON Web Tokens. For it all to work, we'll need a `User` model, a `security` middleware, some `tokens` utility functions, and the appropriate `auth` routes.
@@ -532,19 +532,19 @@ Here are the pieces of functionality that should be built out for the backend:
       - [x] Implement the features outlined in the tests until they're all passing
     - [x] In the `app.js` file, add the `Authentication` header parsing middleware to the Express app's middleware pipeline
   - [x] Commit all work to `git`
-  - [ ] The **/auth** routes
+  - [x] The **/auth** routes
     - [x] In the `routes` directory, create two new files: `routes/auth.js` and `routes/auth.test.js`
-      - [ ] A new Express router should be created. It should handle:
-        - [ ] A `GET` request to the `/me` endpoint
-          - [ ] It should send a JSON response back to the client with the user info like so: `{ "user": { "email": "user@gmail.com", ... } }`
+      - [x] A new Express router should be created. It should handle:
+        - [x] A `GET` request to the `/me` endpoint
+          - [x] It should send a JSON response back to the client with the user info like so: `{ "user": { "email": "user@gmail.com", ... } }`
         - [x] A `POST` request to the `/login` endpoint
           - [x] It should accept a request body with `email` and `password` keys
           - [x] It should send a JSON response back to the client with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
         - [x] A `POST` request to the `/register` endpoint
           - [x] It should accept a request body with `email`, `username`, `firstName`, `lastName`, and `password` keys
-          - [ ] It should send a JSON response back to the client with a `201` status code, along with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
+          - [x] It should send a JSON response back to the client with a `201` status code, along with a new JWT and user info like so: `{ "token": "e2c2...", "user": { "email": "user@gmail.com", ... } }`
       - [x] It should be mounted at the `/auth` endpoint in the `app.js` file
-    - [ ] In the `routes/auth.test.js` file:
+    - [x] In the `routes/auth.test.js` file:
       - [x] Test the `POST /auth/login` endpoint
         - [x] Write test cases for:
           - [x] Allows user to register with valid credentials and responds with JSON containing a valid token and user in the "token" and "user" fields
@@ -558,109 +558,109 @@ Here are the pieces of functionality that should be built out for the backend:
           - [x] Throws `BadRequestError` when user doesn't provide one of the required fields
           - [x] Throws `BadRequestError` when user provides email that already exists
           - [x] Throws `BadRequestError` when user provides username that already exists
-      - [ ] Test the `POST /auth/me` endpoint
-        - [ ] Write test cases for:
-          - [ ] Provides the user with their user info when a valid JWT is present in the `Authentication` header of the request
-          - [ ] Throws an `UnauthorizedError` when no valid user is logged in
-    - [ ] In the `routes/auth.js` file:
+      - [x] Test the `POST /auth/me` endpoint
+        - [x] Write test cases for:
+          - [x] Provides the user with their user info when a valid JWT is present in the `Authentication` header of the request
+          - [x] Throws an `UnauthorizedError` when no valid user is logged in
+    - [x] In the `routes/auth.js` file:
       - [x] Create a new Express router
-      - [ ] Implement the features outlined in the tests until they're all passing
+      - [x] Implement the features outlined in the tests until they're all passing
     - [x] In the `app.js` file:
       - [x] Mount the router at the `/auth` endpoint
-  - [ ] Commit all work to `git`
-  - [ ] There should now be a full-fledged authentication system in place!
-- [ ] **Resources and Permissions**
-  - [ ] Next, implement the functionality to allow users to save instances of things they've drank/eaten, so that they can track their own nutrition data! Also make sure users can only access the data that they themselves have created. No other user should be able to see any data owned by another user!
-  - [ ] The **Nutrition** model
-    - [ ] In the `models` directory, create two new files: `models/nutrition.js` and `models/nutrition.test.js`
-      - [ ] The `Nutrition` model should have **at least** the following static methods:
-        - [ ] `createNutrition`
-          - [ ] Should insert a new nutrition instance into the database when values are supplied for all of the required fields: `"name"`, `"category"`, `"calories"`, and `"image_url"`. The `quantity` field should default to `1`.
-          - [ ] The new nutrition instance should have its `user_id` field set to the `id` of the authenticated user
-          - [ ] Should throw a `BadRequestError` (`400` status code) or `UnprocessableEntityError` (`422` status code) when any of those values are not supplied.
-        - [ ] `fetchNutritionById`
-          - [ ] When supplied with a valid `id`, fetches the a nutrition instance from the database that matches that `id`.
-          - [ ] If no nutrition instance matches that `id`, throws a `NotFoundError` (`404` status code)
-        - [ ] `listNutritionForUser`
-          - [ ] Should list all nutrition instances in the database that are owned by a particular user
-    - [ ] In the `models/nutrition.test.js` file:
-      - [ ] Test the `createNutrition` method. Write test cases for:
-        - [ ] A user can create a nutrition instance when they supply the appropriate values
-        - [ ] The appropriate error is thrown when any of the provided errors are invalid
-        - [ ] The user that creates the nutrition instance now owns that nutrition instance
-      - [ ] Test the `fetchNutritionById` method. Write test cases for:
-        - [ ] Fetches the nutrition instance that matches the supplied `id`
-        - [ ] Throws a `NotFoundError` when no nutrition instances matches the supplied `id`
-      - [ ] Test the `listNutritionForUser` method. Write test cases for:
-        - [ ] Fetches all nutrition instances belonging to a particular user
-        - [ ] Doesn't include any nutrition instances belonging to a different user
-        - [ ] Returns an empty array if no nutrition instances are found in the database that belong to that user
-    - [ ] In the `models/nutrition.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-    - [ ] Commit all work to `git`
-  - [ ] The **permissions** middleware
-    - [ ] In the `middleware` directory, create two new files: `middleware/permissions.js` and `middleware/permissions.test.js`
-      - [ ] Though more functions will need to be added here as the number of resources grows, for now only 1 function needs to be created.
-      - [ ] The `authedUserOwnsNutrition` middleware function should:
-        - [ ] Probably be called after the `requireAuthenticatedUser` security middleware in any route's middleware pipeline
-        - [ ] Extract a parameter from the request endpoint that corresponds to the `id` of the nutrition instance
-        - [ ] Query the database for that nutrition instance
-        - [ ] Check that it is owned by the authenticated user
-          - [ ] If it doesn't, it should throw a `ForbiddenError` (`403` status code)
-          - [ ] If the nutrition instance does belong to the authenticated user, it should attach it to the `locals` property of the `response` as its `nutrition` property so that it doesn't need to be fetched again by the database (this isn't required, but is probably a good idea).
-    - [ ] In the `middleware/permissions.test.js` file:
-      - [ ] Test the `authedUserOwnsNutrition` middleware function
-        - [ ] Write test cases for:
-          - [ ] Throws error if authenticated user doesn't own nutrition
-          - [ ] Throws `NotFoundError` if `id` of nutrition isn't found in database
-          - [ ] Doesn't throw error if authenticated user is nutrition owner
-          - [ ] (OPTIONAL) Attaches the `nutrition` to the `locals` property of the response when the user owns the nutrition instance
-    - [ ] In the `middleware/permissions.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-    - [ ] Commit all work to `git`
-  - [ ] The **/nutrition** routes
-    - [ ] In the `routes` directory, create two new files: `routes/nutrition.js` and `routes/nutrition.test.js`
-      - [ ] A new Express router should be created that will be mounted at the `/nutrition` endpoint. It should handle:
-        - [ ] `GET` requests to the `/` endpoint
-          - [ ] It should send a JSON response back to the client with all of the user-owned nutrition instances in an array like so: `{ "nutritions": [...] }`
-        - [ ] `POST` requests to the `/` endpoint
-          - [ ] It should accept a request body with one `nutrition` key containing an object with all the attributes of the `nutrition` entry
-          - [ ] It should send a JSON response back to the client with a `201` status code, and the newly created nutrition instance like so: `{ "nutrition": { ... } }`
-        - [ ] `GET` requests to the `/:nutritionId` endpoint
-          - [ ] It should send a JSON response back to the client with the nutrition instance that matches the `:nutritionId` parameter like so: `{ "nutrition": { ... } }`
-    - [ ] In the `routes/nutrition.test.js` file:
-      - [ ] Test the `GET /nutrition` endpoint
-        - [ ] Write test cases for:
-          - [ ] Returns an array of all `nutrition` entries belonging to the user
-          - [ ] Other user's entries aren't included in the `nutritions` array
-          - [ ] Throws `UnauthorizedError` if no valid user is logged in
-      - [ ] Test the `POST /nutrition` endpoint
-        - [ ] Write test cases for:
-          - [ ] Authenticated users can create a new `nutrition` entry when providing values for all the required fields
-          - [ ] The new `nutrition` entry belongs to the user that created it
-          - [ ] Throws a `BadRequestError` if any of the required fields are missing
-          - [ ] Throws an `UnauthorizedError` if no valid user is logged in
-      - [ ] Test the `GET /nutrition/:nutritionId` endpoint
-        - [ ] Write test cases for:
-          - [ ] Nutrition owner can fetch a `nutrition` entry when providing a valid `id`
-          - [ ] Throws a `403 ForbiddenError` if a user tries to access a `nutrition` instance that does not belong to them
-          - [ ] Throws a `404 NotFoundError` when the `nutritionId` does not match any nutrition in the database
-          - [ ] Throws a `401 UnauthorizedError` if no valid user is logged in
-    - [ ] In the `routes/nutrition.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-  - [ ] Commit all work to `git`
+  - [x] Commit all work to `git`
+  - [x] There should now be a full-fledged authentication system in place!
+- [x] **Resources and Permissions**
+  - [x] Next, implement the functionality to allow users to save instances of things they've drank/eaten, so that they can track their own nutrition data! Also make sure users can only access the data that they themselves have created. No other user should be able to see any data owned by another user!
+  - [x] The **Nutrition** model
+    - [x] In the `models` directory, create two new files: `models/nutrition.js` and `models/nutrition.test.js`
+      - [x] The `Nutrition` model should have **at least** the following static methods:
+        - [x] `createNutrition`
+          - [x] Should insert a new nutrition instance into the database when values are supplied for all of the required fields: `"name"`, `"category"`, `"calories"`, and `"image_url"`. The `quantity` field should default to `1`.
+          - [x] The new nutrition instance should have its `user_id` field set to the `id` of the authenticated user
+          - [x] Should throw a `BadRequestError` (`400` status code) or `UnprocessableEntityError` (`422` status code) when any of those values are not supplied.
+        - [x] `fetchNutritionById`
+          - [x] When supplied with a valid `id`, fetches the a nutrition instance from the database that matches that `id`.
+          - [x] If no nutrition instance matches that `id`, throws a `NotFoundError` (`404` status code)
+        - [x] `listNutritionForUser`
+          - [x] Should list all nutrition instances in the database that are owned by a particular user
+    - [x] In the `models/nutrition.test.js` file:
+      - [x] Test the `createNutrition` method. Write test cases for:
+        - [x] A user can create a nutrition instance when they supply the appropriate values
+        - [x] The appropriate error is thrown when any of the provided errors are invalid
+        - [x] The user that creates the nutrition instance now owns that nutrition instance
+      - [x] Test the `fetchNutritionById` method. Write test cases for:
+        - [x] Fetches the nutrition instance that matches the supplied `id`
+        - [x] Throws a `NotFoundError` when no nutrition instances matches the supplied `id`
+      - [x] Test the `listNutritionForUser` method. Write test cases for:
+        - [x] Fetches all nutrition instances belonging to a particular user
+        - [x] Doesn't include any nutrition instances belonging to a different user
+        - [x] Returns an empty array if no nutrition instances are found in the database that belong to that user
+    - [x] In the `models/nutrition.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+    - [x] Commit all work to `git`
+  - [x] The **permissions** middleware
+    - [x] In the `middleware` directory, create two new files: `middleware/permissions.js` and `middleware/permissions.test.js`
+      - [x] Though more functions will need to be added here as the number of resources grows, for now only 1 function needs to be created.
+      - [x] The `authedUserOwnsNutrition` middleware function should:
+        - [x] Probably be called after the `requireAuthenticatedUser` security middleware in any route's middleware pipeline
+        - [x] Extract a parameter from the request endpoint that corresponds to the `id` of the nutrition instance
+        - [x] Query the database for that nutrition instance
+        - [x] Check that it is owned by the authenticated user
+          - [x] If it doesn't, it should throw a `ForbiddenError` (`403` status code)
+          - [x] If the nutrition instance does belong to the authenticated user, it should attach it to the `locals` property of the `response` as its `nutrition` property so that it doesn't need to be fetched again by the database (this isn't required, but is probably a good idea).
+    - [x] In the `middleware/permissions.test.js` file:
+      - [x] Test the `authedUserOwnsNutrition` middleware function
+        - [x] Write test cases for:
+          - [x] Throws error if authenticated user doesn't own nutrition
+          - [x] Throws `NotFoundError` if `id` of nutrition isn't found in database
+          - [x] Doesn't throw error if authenticated user is nutrition owner
+          - [x] (OPTIONAL) Attaches the `nutrition` to the `locals` property of the response when the user owns the nutrition instance
+    - [x] In the `middleware/permissions.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+    - [x] Commit all work to `git`
+  - [x] The **/nutrition** routes
+    - [x] In the `routes` directory, create two new files: `routes/nutrition.js` and `routes/nutrition.test.js`
+      - [x] A new Express router should be created that will be mounted at the `/nutrition` endpoint. It should handle:
+        - [x] `GET` requests to the `/` endpoint
+          - [x] It should send a JSON response back to the client with all of the user-owned nutrition instances in an array like so: `{ "nutritions": [...] }`
+        - [x] `POST` requests to the `/` endpoint
+          - [x] It should accept a request body with one `nutrition` key containing an object with all the attributes of the `nutrition` entry
+          - [x] It should send a JSON response back to the client with a `201` status code, and the newly created nutrition instance like so: `{ "nutrition": { ... } }`
+        - [x] `GET` requests to the `/:nutritionId` endpoint
+          - [x] It should send a JSON response back to the client with the nutrition instance that matches the `:nutritionId` parameter like so: `{ "nutrition": { ... } }`
+    - [x] In the `routes/nutrition.test.js` file:
+      - [x] Test the `GET /nutrition` endpoint
+        - [x] Write test cases for:
+          - [x] Returns an array of all `nutrition` entries belonging to the user
+          - [x] Other user's entries aren't included in the `nutritions` array
+          - [x] Throws `UnauthorizedError` if no valid user is logged in
+      - [x] Test the `POST /nutrition` endpoint
+        - [x] Write test cases for:
+          - [x] Authenticated users can create a new `nutrition` entry when providing values for all the required fields
+          - [x] The new `nutrition` entry belongs to the user that created it
+          - [x] Throws a `BadRequestError` if any of the required fields are missing
+          - [x] Throws an `UnauthorizedError` if no valid user is logged in
+      - [x] Test the `GET /nutrition/:nutritionId` endpoint
+        - [x] Write test cases for:
+          - [x] Nutrition owner can fetch a `nutrition` entry when providing a valid `id`
+          - [x] Throws a `403 ForbiddenError` if a user tries to access a `nutrition` instance that does not belong to them
+          - [x] Throws a `404 NotFoundError` when the `nutritionId` does not match any nutrition in the database
+          - [x] Throws a `401 UnauthorizedError` if no valid user is logged in
+    - [x] In the `routes/nutrition.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+  - [x] Commit all work to `git`
 - **Additional Resources**
   - [ ] Create model and routes files for 1-2 additional resources that your app will track (sleep, exercise, steps, floors climbed, meditation, mood, heartrate, music practice, etc.)
   - [ ] Commit all work to `git`
 - **Summary Statistics**
   - [ ] One of the last features of the API will be a model that calculates summary statistic on the different resources that users are tracking. This includes statistics like average calories per day, or max calories per category. To do that, we'll create a new `Activity` model and an `activity` route that will be used to populate the frontend.
-  - [ ] The **Activity** model
-    - [ ] In the `models` directory, create two new files: `models/Activity.js` and `models/Activity.test.js`
-      - [ ] The `Activity` model should have **at least** the following static methods:
-        - [ ] `calculateDailyCaloriesSummaryStats`
-          - [ ] Should execute a SQL query that calculates **at least** the total calories consumed per day (aliased as `totalCaloriesPerDay`), along with the day (aliased as `date`).
-          - [ ] The query should return a row for **each day** containing the total calories consumed per day, and the average caloric content per nutrition entry.
-            - [ ] For instance, here's a set of 7 **simplified** nutrition item entries (actual data will look different):
+  - [x] The **Activity** model
+    - [x] In the `models` directory, create two new files: `models/Activity.js` and `models/Activity.test.js`
+      - [x] The `Activity` model should have **at least** the following static methods:
+        - [x] `calculateDailyCaloriesSummaryStats`
+          - [x] Should execute a SQL query that calculates **at least** the total calories consumed per day (aliased as `totalCaloriesPerDay`), along with the day (aliased as `date`).
+          - [x] The query should return a row for **each day** containing the total calories consumed per day, and the average caloric content per nutrition entry.
+            - [x] For instance, here's a set of 7 **simplified** nutrition item entries (actual data will look different):
               - 1. `{ id: 1, user_id: 1, calories: 100, category: "candy", created_at: "12-22-2022" }`
               - 2. `{ id: 2, user_id: 1, calories: 200, category: "drink", created_at: "12-22-2022" }`
               - 3. `{ id: 3, user_id: 1, calories: 200, category: "fruit", created_at: "12-23-2022" }`
@@ -668,14 +668,14 @@ Here are the pieces of functionality that should be built out for the backend:
               - 5. `{ id: 5, user_id: 1, calories: 400, category: "drink", created_at: "12-23-2022" }`
               - 6. `{ id: 6, user_id: 1, calories: 700, category: "fruit", created_at: "12-24-2022" }`
               - 7. `{ id: 7, user_id: 1, calories: 100, category: "fruit", created_at: "12-24-2022" }`
-            - [ ] The summary stats returned from the query should look like this:
+            - [x] The summary stats returned from the query should look like this:
               - 1. `{ date: "12-22-2022", totalCaloriesPerDay: 300 }`
               - 2. `{ date: "12-23-2022", totalCaloriesPerDay: 1000 }`
               - 3. `{ date: "12-24-2022", totalCaloriesPerDay: 800 }`
-        - [ ] `calculatePerCategoryCaloriesSummaryStats`
-          - [ ] Should execute a SQL query that calculates **at least** the average calories consumed per category (aliased as `avgCaloriesPerCategory` and **rounded down to one decimal place**), along with the category (aliased as `category`).
-          - [ ] The query should return a row for **each day** containing the total calories consumed per day, and the average caloric content per nutrition entry.
-            - [ ] For instance, here's a set of 7 **simplified** nutrition item entries (actual data will look different):
+        - [x] `calculatePerCategoryCaloriesSummaryStats`
+          - [x] Should execute a SQL query that calculates **at least** the average calories consumed per category (aliased as `avgCaloriesPerCategory` and **rounded down to one decimal place**), along with the category (aliased as `category`).
+          - [x] The query should return a row for **each day** containing the total calories consumed per day, and the average caloric content per nutrition entry.
+            - [x] For instance, here's a set of 7 **simplified** nutrition item entries (actual data will look different):
               - 1. `{ id: 1, user_id: 1, calories: 100, category: "candy", created_at: "12-22-2022" }`
               - 2. `{ id: 2, user_id: 1, calories: 200, category: "drink", created_at: "12-22-2022" }`
               - 3. `{ id: 3, user_id: 1, calories: 200, category: "fruit", created_at: "12-23-2022" }`
@@ -683,23 +683,23 @@ Here are the pieces of functionality that should be built out for the backend:
               - 5. `{ id: 5, user_id: 1, calories: 400, category: "drink", created_at: "12-23-2022" }`
               - 6. `{ id: 6, user_id: 1, calories: 700, category: "fruit", created_at: "12-24-2022" }`
               - 7. `{ id: 7, user_id: 1, calories: 100, category: "fruit", created_at: "12-24-2022" }`
-            - [ ] The summary stats returned from the query should look like this:
+            - [x] The summary stats returned from the query should look like this:
               - 1. `{ category: "candy", avgCaloriesPerCategory: 100.0 }`
               - 2. `{ category: "drink", avgCaloriesPerCategory: 300.0 }`
               - 3. `{ category: "fruit", avgCaloriesPerCategory: 266.6 }`
               - 4. `{ category: "dairy", avgCaloriesPerCategory: 400.0 }`
-    - [ ] In the `models/Activity.test.js` file:
-      - [ ] Test the `calculateDailyCaloriesSummaryStats` method. Write test cases for:
-        - [ ] The `calculateDailyCaloriesSummaryStats` method correctly calculates summary statistics per day
-        - [ ] Only uses the `nutrition` entries belonging to the user when calculating summary statistics
-        - [ ] Returns an empty array when the user has no `nutrition` entries
-      - [ ] Test the `calculatePerCategoryCaloriesSummaryStats` method. Write test cases for:
-        - [ ] The `calculatePerCategoryCaloriesSummaryStats` method correctly calculates average calories per category summary statistics
-        - [ ] Only uses the `nutrition` entries belonging to the user when calculating summary statistics
-        - [ ] Returns an empty array when the user has no `nutrition` entries
-    - [ ] In the `models/Activity.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-    - [ ] Commit all work to `git`
+    - [x] In the `models/Activity.test.js` file:
+      - [x] Test the `calculateDailyCaloriesSummaryStats` method. Write test cases for:
+        - [x] The `calculateDailyCaloriesSummaryStats` method correctly calculates summary statistics per day
+        - [x] Only uses the `nutrition` entries belonging to the user when calculating summary statistics
+        - [x] Returns an empty array when the user has no `nutrition` entries
+      - [x] Test the `calculatePerCategoryCaloriesSummaryStats` method. Write test cases for:
+        - [x] The `calculatePerCategoryCaloriesSummaryStats` method correctly calculates average calories per category summary statistics
+        - [x] Only uses the `nutrition` entries belonging to the user when calculating summary statistics
+        - [x] Returns an empty array when the user has no `nutrition` entries
+    - [x] In the `models/Activity.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+    - [x] Commit all work to `git`
   - [ ] The **/activity** routes
     - [ ] In the `routes` directory, create two new files: `routes/activity.js` and `routes/activity.test.js`
       - [ ] A new Express router should be created that will be mounted at the `/activity` endpoint. It should handle:
