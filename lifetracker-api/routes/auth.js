@@ -56,8 +56,9 @@ authRouter.post('/register', async ({ body: credentials }, res) => {
  * @route {GET} /me
  * @authentication This route requires authenticated users.
  */
-authRouter.get('/me', requireAuth, async ({ locals: { user: { email } } }, res) => {
+authRouter.get('/me', requireAuth, async (req, res) => {
     try {
+        const email = res.locals.user.email
         const user = await User.fetchUserByEmail(email)
         res.status(200).json({ user })
     } catch ({ status, message }) {
