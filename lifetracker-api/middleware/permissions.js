@@ -40,7 +40,3 @@ const authedUserOwnsNutrition = async (req, res, next) => {
 module.exports = {
     authedUserOwnsNutrition
 }
-
-/**
- * @todo
- */
