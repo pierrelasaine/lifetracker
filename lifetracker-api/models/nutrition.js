@@ -1,6 +1,6 @@
 /**
  * @fileoverview A Nutrition model for managing nutrition data in a Node.js application.
- * @module models/Nutrition
+ * @module models/nutrition
  * @requires module:../db - Database access module.
  * @requires module:../utils/errors - Error classes for exception handling.
  */

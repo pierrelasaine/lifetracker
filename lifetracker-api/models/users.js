@@ -2,13 +2,13 @@
  * @fileoverview A User model for managing user data and authentication in a Node.js application.
  * @module models/users
  * @requires bcrypt - Library for hashing passwords.
- * @requires ../database - Database access module.
+ * @requires ../db - Database access module.
  * @requires ../config - Config module containing the bcrypt work factor.
  * @requires ../utils/errors - Error classes for exception handling.
  */
 
 const bcrypt = require('bcrypt')
-const database = require('../database')
+const db = require('../db')
 const { BCRYPT_WORK_FACTOR } = require('../config')
 const { UnauthorizedError, BadRequestError } = require('../utils/errors')
 
@@ -27,7 +27,7 @@ class User {
 
         const {
             rows: [user]
-        } = await database.query('SELECT * FROM users WHERE email = $1', [
+        } = await db.query('SELECT * FROM users WHERE email = $1', [
             email
         ])
 
@@ -58,7 +58,7 @@ class User {
 
         const {
             rows: [existingUser]
-        } = await database.query(
+        } = await db.query(
             'SELECT * FROM users WHERE email = $1 OR username = $2',
             [email, username]
         )
@@ -73,8 +73,11 @@ class User {
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
         const {
             rows: [user]
-        } = await database.query(
-            'INSERT INTO users (username, password, first_name, last_name, email) VALUES ($1, $2, $3, $4, $5) RETURNING id, username, first_name, last_name, email',
+        } = await db.query(
+            `
+            INSERT INTO users (username, password, first_name, last_name, email) 
+            VALUES ($1, $2, $3, $4, $5) RETURNING id, username, first_name, last_name, email
+            `,
             [username, hashedPassword, firstName, lastName, email]
         )
 
@@ -90,7 +93,7 @@ class User {
     static async fetchUserByEmail(email) {
         const {
             rows: [user]
-        } = await database.query('SELECT * FROM users WHERE email = $1', [
+        } = await db.query('SELECT * FROM users WHERE email = $1', [
             email
         ])
         if (!user)

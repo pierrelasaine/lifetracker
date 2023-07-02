@@ -3,13 +3,13 @@
  * @module models/users.test
  * @requires dotenv - Module to load environment variables for the test setup.
  * @requires ./users - The User model module to be tested.
- * @requires ../database - Database module to set up and tear down test data.
+ * @requires ../db - Database module to set up and tear down test data.
  * @requires ../utils/errors - Error classes to be used in tests.
  */
 
 require('dotenv').config()
 const User = require('./users')
-const database = require('../database')
+const db = require('../db')
 const { UnauthorizedError, BadRequestError } = require('../utils/errors')
 
 const knownUser = {
@@ -22,9 +22,11 @@ const knownUser = {
 
 describe('User', () => {
     beforeEach(async () => {
-        await database.query(
-            `INSERT INTO users (username, password, first_name, last_name, email)
-                VALUES ($1, $2, $3, $4, $5)`,
+        await db.query(
+            `
+            INSERT INTO users (username, password, first_name, last_name, email)
+            VALUES ($1, $2, $3, $4, $5)
+            `,
             [
                 knownUser.username,
                 knownUser.hashedPassword,
@@ -35,9 +37,9 @@ describe('User', () => {
         )
     })
 
-    afterEach(async () => await database.query('DELETE FROM users'))
+    afterEach(async () => await db.query('DELETE FROM users'))
 
-    afterAll(async () => await database.end())
+    afterAll(async () => await db.end())
 
     describe('login', () => {
         it('logs in with correct credentials', async () => {
