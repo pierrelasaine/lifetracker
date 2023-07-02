@@ -4,10 +4,12 @@
  * @module middleware/permissions
  * @requires ../utils/errors - Error classes for exception handling.
  * @requires ../models/nutrition - Nutrition data model.
+ * @requires ../models/user - User data model.
  */
 
 const { ForbiddenError, NotFoundError } = require('../utils/errors')
 const Nutrition = require('../models/nutrition')
+const User = require('../models/users')
 
 /**
  * @description Middleware to check if the authenticated user is the owner of the nutrition data they are trying to access.
@@ -20,11 +22,13 @@ const Nutrition = require('../models/nutrition')
  */
 const authedUserOwnsNutrition = async (req, res, next) => {
     try {
-        const { id } = req.params
+        const id = req.params.nutritionId
         const nutrition = await Nutrition.fetchNutritionById(id)
+        const { email: email } = res.locals.user
+        const { id: userId } = await User.fetchUserByEmail(email)
 
         if (!nutrition) throw new NotFoundError()
-        if (nutrition.user_id !== req.user.id) throw new ForbiddenError()
+        if (nutrition.user_id !== userId) throw new ForbiddenError()
 
         res.locals.nutrition = nutrition
         next()
@@ -36,3 +40,7 @@ const authedUserOwnsNutrition = async (req, res, next) => {
 module.exports = {
     authedUserOwnsNutrition
 }
+
+/**
+ * @todo
+ */
