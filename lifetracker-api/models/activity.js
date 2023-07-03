@@ -29,7 +29,7 @@ class Activity {
 
         return data.map(stat => ({
             date: stat.date.toISOString().split('T')[0],
-            totalcaloriesperday: parseInt(stat.totalcaloriesperday)
+            totalCaloriesPerDay: parseInt(stat.totalcaloriesperday)
         }))
     }
 
