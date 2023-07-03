@@ -700,20 +700,20 @@ Here are the pieces of functionality that should be built out for the backend:
     - [x] In the `models/Activity.js` file:
       - [x] Implement the features outlined in the tests until they're all passing
     - [x] Commit all work to `git`
-  - [ ] The **/activity** routes
-    - [ ] In the `routes` directory, create two new files: `routes/activity.js` and `routes/activity.test.js`
-      - [ ] A new Express router should be created that will be mounted at the `/activity` endpoint. It should handle:
-        - [ ] `GET` requests to the `/` endpoint
-          - [ ] It should send a JSON response back to the client with summary stats for each resource in the following format:
-            - [ ] `{ "nutrition": { "calories": { "perDay": [...], "perCategory": [...] }, ...anyOtherStats }, ...statsForOtherResources }`
-    - [ ] In the `routes/activity.test.js` file:
-      - [ ] Test the `GET /activity` endpoint
-        - [ ] Write test cases for:
-          - [ ] Provides a JSON response containing arrays of summary stats for resources, attributes, and metrics
-          - [ ] Correctly calculates `totalCaloriesPerDay` for a user's `nutrition` entries
-          - [ ] Correctly calculates `avgCaloriesPerCategory` for a user's `nutrition` entries
-          - [ ] Only returns summary stats based on entries that the currently authenticated user owns
-          - [ ] Throws an `UnauthenticatedError` if no valid user is logged in
-    - [ ] In the `routes/activity.js` file:
-      - [ ] Implement the features outlined in the tests until they're all passing
-  - [ ] Commit all work to `git`
+  - [x] The **/activity** routes
+    - [x] In the `routes` directory, create two new files: `routes/activity.js` and `routes/activity.test.js`
+      - [x] A new Express router should be created that will be mounted at the `/activity` endpoint. It should handle:
+        - [x] `GET` requests to the `/` endpoint
+          - [x] It should send a JSON response back to the client with summary stats for each resource in the following format:
+            - [x] `{ "nutrition": { "calories": { "perDay": [...], "perCategory": [...] }, ...anyOtherStats }, ...statsForOtherResources }`
+    - [x] In the `routes/activity.test.js` file:
+      - [x] Test the `GET /activity` endpoint
+        - [x] Write test cases for:
+          - [x] Provides a JSON response containing arrays of summary stats for resources, attributes, and metrics
+          - [x] Correctly calculates `totalCaloriesPerDay` for a user's `nutrition` entries
+          - [x] Correctly calculates `avgCaloriesPerCategory` for a user's `nutrition` entries
+          - [x] Only returns summary stats based on entries that the currently authenticated user owns
+          - [x] Throws an `UnauthenticatedError` if no valid user is logged in
+    - [x] In the `routes/activity.js` file:
+      - [x] Implement the features outlined in the tests until they're all passing
+  - [x] Commit all work to `git`
