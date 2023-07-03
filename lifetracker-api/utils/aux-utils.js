@@ -1,5 +1,7 @@
 const db = require('../db')
 
+const DATE = new Date('2023-12-23')
+
 const createUser = async (user) => {
     const {
         rows: [{ id: userId }]
@@ -26,11 +28,11 @@ const createEntry = async (entry, userId) => {
         rows: [{ id: nutritionId }]
     } = await db.query(
         `
-        INSERT INTO nutrition (name, category, calories, image_url, user_id)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO nutrition (name, category, calories, image_url, user_id, created_at)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id
         `,
-        [entry.name, entry.category, entry.calories, entry.image_url, userId]
+        [entry.name, entry.category, entry.calories, entry.image_url, userId, DATE]
     )
 
     return nutritionId
