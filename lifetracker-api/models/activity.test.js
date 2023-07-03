@@ -118,9 +118,9 @@ describe('Activity', function () {
             )
 
             expect(stats).toEqual([
-                { date: '2023-12-22', totalcaloriesperday: 300 },
-                { date: '2023-12-23', totalcaloriesperday: 1000 },
-                { date: '2023-12-24', totalcaloriesperday: 800 }
+                { date: '2023-12-22', totalCaloriesPerDay: 300 },
+                { date: '2023-12-23', totalCaloriesPerDay: 1000 },
+                { date: '2023-12-24', totalCaloriesPerDay: 800 }
             ])
         })
 
@@ -141,7 +141,7 @@ describe('Activity', function () {
 
             expect(stats).not.toContainEqual({
                 date: '2023-12-25',
-                totalcaloriesperday: 500
+                totalCaloriesPerDay: 500
             })
         })
     })
@@ -158,7 +158,7 @@ describe('Activity', function () {
                 { category: 'drink', avgcaloriespercategory: '300.0' },
                 { category: 'fruit', avgcaloriespercategory: '333.3' }
             ])
-        })
+       })
 
         it('returns empty array when user has no nutrition entries', async function () {
             userId = await createUser(otherUser)
