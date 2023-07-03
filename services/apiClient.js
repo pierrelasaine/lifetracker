@@ -77,7 +77,7 @@ class ApiClient {
      * @param {string} credentials.email - The email address of the user.
      * @returns {Promise<Object>} - The response from the server.
      */
-    async signup(credentials) {
+    async register(credentials) {
         return this.request({
             endpoint: 'auth/register',
             method: 'POST',
