@@ -26,6 +26,7 @@ const { NotFoundError } = require('./utils/errors')
 const { parseAuthorizationHeader, requireAuthenticatedUser } = require('./middleware/security')
 const authRoutes = require('./routes/auth')
 const nutritionRoutes = require('./routes/nutrition')
+const activityRouter = require('./routes/activity')
 
 const app = express()
 
@@ -35,6 +36,7 @@ app.use(cors())
 app.use(parseAuthorizationHeader)
 app.use('/auth', authRoutes)
 app.use('/nutrition', nutritionRoutes)
+app.use('/activity', activityRouter)
 
 app.use((error, request, response, next) => {
     console.error(error)
