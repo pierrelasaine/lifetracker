@@ -1,4 +1,4 @@
-const database = require('./db')
+const db = require('./db')
 
 const commonBeforeAll = () => {
 
@@ -22,3 +22,7 @@ module.exports = {
     commonAfterEach,
     commonAfterAll
 }
+
+/**
+ * @todo
+ */
