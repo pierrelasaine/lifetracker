@@ -35,8 +35,8 @@ const entry = {
 }
 
 describe('Nutrition', () => {
-    let userId
-    let nutritionId
+    let userId,
+        nutritionId
 
     beforeEach(async () => {
         userId = await createUser(knownUser)

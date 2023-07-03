@@ -41,9 +41,9 @@ const entry = {
     image_url: 'http://example.com'
 }
 
-let userId
-let userToken
-let nutritionId
+let userId,
+    userToken,
+    nutritionId
 
 describe('Nutrition Routes Test', () => {
     beforeEach(async () => {
