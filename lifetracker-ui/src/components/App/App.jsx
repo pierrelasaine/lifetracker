@@ -1,47 +1,108 @@
-import './App.css'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LandingPage from '../LandingPage/LandingPage'
+import LoginPage from '../LoginPage/LoginPage'
+import RegistrationPage from '../RegistrationPage/RegistrationPage'
+import ActivityPage from '../ActivityPage/ActivityPage'
+import NutritionPage from '../NutritionPage/NutritionPage'
+import NotFound from '../NotFound/NotFound'
+import Navbar from '../Navbar/Navbar'
+import ApiClient from '../../../../services/apiClient'
 
-const App = () => {
-  const [name, setName] = useState("")
+export default function App() {
+    const [appState, setAppState] = useState({
+        user: null,
+        isAuthenticated: false,
+        nutrition: [],
+        sleep: [],
+        exercise: []
+    })
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const email = event.target.email.value
-    const password = event.target.password.value
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem('lifetracker_token')
+            if (token) {
+                ApiClient.setToken(token)
+                const { data } = await ApiClient.fetchUserFromToken()
+                if (data) {
+                    setAppState(prevState => ({
+                        ...prevState,
+                        user: data.user,
+                        isAuthenticated: !!data.user,
+                        nutrition: data.nutrition,
+                        sleep: data.sleep,
+                        exercise: data.exercise,
+                        token: token
+                    }))
+                }
+            }
+        }
+        fetchUser()
+    }, [appState.isAuthenticated])
 
-    await axios.post('http://localhost:3001/auth/login', { email: email, password: password })
-        .then(response => {
-          const firstName = response.data.user.first_name
-          const lastName = response.data.user.last_name
-
-          setName(`${firstName} ${lastName}`)
-        })
-  }
-
-  if (name) {
     return (
-      <>
-        <h1>{name}</h1>
-        <button onClick={() => setName(null)}>Logout</button>
-      </>
+        <div className='App'>
+            <BrowserRouter>
+                <Navbar
+                    user={appState.user}
+                    setUser={setAppState}
+                />
+                <Routes>
+                    <Route
+                        path='/'
+                        element={<LandingPage />}
+                    />
+                    <Route
+                        path='/login'
+                        element={<LoginPage setAppState={setAppState} />}
+                    />
+                    <Route
+                        path='/register'
+                        element={
+                            <RegistrationPage
+                                isAuthenticated={appState.isAuthenticated}
+                                setAppState={setAppState}
+                            />
+                        }
+                    />
+                    <Route
+                        path='/activity'
+                        element={
+                            appState.isAuthenticated ? (
+                                <ActivityPage
+                                    appState={appState}
+                                    setAppState={setAppState}
+                                />
+                            ) : (
+                                <LoginPage
+                                    message='Please login to view this page'
+                                    setAppState={setAppState}
+                                />
+                            )
+                        }
+                    />
+                    <Route
+                        path='/nutrition/*'
+                        element={
+                            appState.isAuthenticated ? (
+                                <NutritionPage
+                                    appState={appState}
+                                    setAppState={setAppState}
+                                />
+                            ) : (
+                                <LoginPage
+                                    message='Please login to view this page'
+                                    setAppState={setAppState}
+                                />
+                            )
+                        }
+                    />
+                    <Route
+                        path='*'
+                        element={<NotFound />}
+                    />
+                </Routes>
+            </BrowserRouter>
+        </div>
     )
-  } 
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <section>
-          <label htmlFor="email">Email</label>
-          <input id="email" type="text" required/>
-        </section>
-        <section>
-          <label htmlFor="password">Password</label>
-          <input id="password" type="text" />
-          <button type="submit">Login</button>
-        </section>
-      </form>
-    </>
-  )
 }
-
-export default App
