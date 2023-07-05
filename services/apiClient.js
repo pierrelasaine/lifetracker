@@ -47,7 +47,7 @@ class ApiClient {
             const res = await axios({ url, method, data, headers })
             return { data: res.data, error: null }
         } catch (error) {
-            console.error('APIclient.makeRequest.error', error)
+            console.error(error.response.status, error.response.data.error)
             return { data: null, error: error.response.data.error }
         }
     }
@@ -108,14 +108,13 @@ class ApiClient {
      * @param {string} nutrition.category - The category of the nutrition entry.
      * @param {number} nutrition.calories - The number of calories in the nutrition entry.
      * @param {string} nutrition.image_url - The image URL of the nutrition entry.
-     * @param {number} nutrition.user_id - The user ID associated with the nutrition entry.
      * @returns {Promise<Object>} - The response from the server.
      */
     async addNutritionEntry(nutrition) {
         return this.request({
             endpoint: 'nutrition',
             method: 'POST',
-            data: nutrition
+            data: { nutrition: nutrition }
         })
     }
 
