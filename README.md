@@ -54,304 +54,304 @@ Implement any of the following features to improve the application:
 
 #### The `App` Component
 
-- [ ] Build the `App` component to:
-  - [ ] Be wrapped by an element with the class name of `app`
-  - [ ] Contain the routes for the app
-  - [ ] Render the `Navbar` component on every route
-  - [ ] Render a `BrowserRouter` component that contains a `Routes` component with the following routes:
-    - [ ] `/` - Render the `Landing` component
-    - [ ] `/login` - Render the `LoginPage` component
-    - [ ] `/register` - Render the `RegistrationPage` component
-    - [ ] `/activity` - Render the `ActivityPage` component **only** if the user is logged in, otherwise it renders the `AccessForbidden` component
-    - [ ] `/nutrition/*` - Render the `NutritionPage`component **only** if the user is logged in, otherwise it renders the`AccessForbidden` component
-    - [ ] `*` - Anything else renders the `NotFound` component
+- [x] Build the `App` component to:
+  - [x] Be wrapped by an element with the class name of `app`
+  - [x] Contain the routes for the app
+  - [x] Render the `Navbar` component on every route
+  - [x] Render a `BrowserRouter` component that contains a `Routes` component with the following routes:
+    - [x] `/` - Render the `Landing` component
+    - [x] `/login` - Render the `LoginPage` component
+    - [x] `/register` - Render the `RegistrationPage` component
+    - [x] `/activity` - Render the `ActivityPage` component **only** if the user is logged in, otherwise it renders the `AccessForbidden` component
+    - [x] `/nutrition/*` - Render the `NutritionPage`component **only** if the user is logged in, otherwise it renders the`AccessForbidden` component
+    - [x] `*` - Anything else renders the `NotFound` component
 
 #### Handling API Requests
 
-- [ ] Create a `constants.js` file at the root of the project that exports the following variables:
-  - [ ] `PRODUCTION_API_BASE_URL` - set to whatever URL the production API is deployed at
-  - [ ] `DEVELOPMENT_API_BASE_URL` - set to `"http://localhost:3001"` for development
-  - [ ] `API_BASE_URL` - If `process.env.NODE_ENV` is `production`, set this to `PRODUCTION_API_BASE_URL`, otherwise set it to `DEVELOPMENT_API_BASE_URL`
-- [ ] Create a `services` directory at the root of the project.
-- [ ] Inside the `services` directory, create an `apiClient.js` file
-- [ ] In the `apiClient.js` file, import the `axios` package and the `API_BASE_URL` constant from the `constants.js` file.
-- [ ] Define a new class in that file called `ApiClient`.
-  - [ ] Give it a constructor function that accepts a single parameter - `remoteHostUrl`. The constructor should attach the `remoteHostUrl` parameter to a new instance with `this.remoteHostUrl = remoteHostUrl`. It should also set `this.token = null`.
-  - [ ] Export default a new instance of the `ApiClient` class.
-  - [ ] Add an additional method called `setToken` that accepts a single parameter - `token` and attaches it to the instance.
-  - [ ] Create a utility method called `request` that uses `axios` to issue HTTP requests
-  - [ ] Add a `login` method that uses the `request` method to send an HTTP request to the `auth/login` endpoint
-  - [ ] Add a `signup` method that uses the `request` method to send an HTTP request to the `auth/register` endpoint
-  - [ ] Add a `fetchUserFromToken` method that uses the `request` method to send an HTTP request to the `auth/me` endpoint
-  - [ ] **Add as many other methods as needed when making API requests.**
+- [x] Create a `constants.js` file at the root of the project that exports the following variables:
+  - [x] `PRODUCTION_API_BASE_URL` - set to whatever URL the production API is deployed at
+  - [x] `DEVELOPMENT_API_BASE_URL` - set to `"http://localhost:3001"` for development
+  - [x] `API_BASE_URL` - If `process.env.NODE_ENV` is `production`, set this to `PRODUCTION_API_BASE_URL`, otherwise set it to `DEVELOPMENT_API_BASE_URL`
+- [x] Create a `services` directory at the root of the project.
+- [x] Inside the `services` directory, create an `apiClient.js` file
+- [x] In the `apiClient.js` file, import the `axios` package and the `API_BASE_URL` constant from the `constants.js` file.
+- [x] Define a new class in that file called `ApiClient`.
+  - [x] Give it a constructor function that accepts a single parameter - `remoteHostUrl`. The constructor should attach the `remoteHostUrl` parameter to a new instance with `this.remoteHostUrl = remoteHostUrl`. It should also set `this.token = null`.
+  - [x] Export default a new instance of the `ApiClient` class.
+  - [x] Add an additional method called `setToken` that accepts a single parameter - `token` and attaches it to the instance.
+  - [x] Create a utility method called `request` that uses `axios` to issue HTTP requests
+  - [x] Add a `login` method that uses the `request` method to send an HTTP request to the `auth/login` endpoint
+  - [x] Add a `signup` method that uses the `request` method to send an HTTP request to the `auth/register` endpoint
+  - [x] Add a `fetchUserFromToken` method that uses the `request` method to send an HTTP request to the `auth/me` endpoint
+  - [x] **Add as many other methods as needed when making API requests.**
 
 #### Manage Authentication State
 
 Update the `App` component to manage authentication state:
 
-- [ ] Create a state variable called `appState` with a function called `setAppState` to update that state.
-  - [ ] Initialize `appState` with an object containing properties like `user`, `isAuthenticated`, `nutrition`, `sleep`, and `exercise`.
-- [ ] Implement a `useEffect` hook to fetch the user data.
-  - [ ] Define an asynchronous function named `fetchUser` to fetch the user data.
-    - [ ] Inside the `fetchUser` function, retrieve a token from `localStorage` using `localStorage.getItem("lifetracker_token")`
-    - [ ] Call the `setToken` function from the `apiClient.js` file.
-    - [ ] Make an API call to fetch user data using the `fetchUser` function from the `apiClient.js` file and extract the `data` from the response.
-    - [ ] If `data` is not null and not undefined, update the component's state using the `setAppState` function. Pass a callback to `setAppState` that takes the previous state and returns a new state object.
-    - [ ] In the callback, use the spread operator (`...`) to copy the previous state's properties to the new state object.
-    - [ ] Assign the following properties from the `data` object to the new state object:
-      - [ ] `user`
-      - [ ] `token`
-    - [ ] Assign at least **one** of the following properties from the `data` object to the new state object:
-      - [ ] `nutrition`
-      - [ ] `exercise`
-      - [ ] `sleep`
-    - [ ] Call the `setAppState` with a new state object to update the component's state.
-    - [ ] Outside the `fetchUser` function, call `fetchUser` to trigger the initial data fetch when the component mounts.
-    - [ ] The effect should be triggered whenever the value of `appState.isAuthenticated` changes.
+- [x] Create a state variable called `appState` with a function called `setAppState` to update that state.
+  - [x] Initialize `appState` with an object containing properties like `user`, `isAuthenticated`, `nutrition`, `sleep`, and `exercise`.
+- [x] Implement a `useEffect` hook to fetch the user data.
+  - [x] Define an asynchronous function named `fetchUser` to fetch the user data.
+    - [x] Inside the `fetchUser` function, retrieve a token from `localStorage` using `localStorage.getItem("lifetracker_token")`
+    - [x] Call the `setToken` function from the `apiClient.js` file.
+    - [x] Make an API call to fetch user data using the `fetchUser` function from the `apiClient.js` file and extract the `data` from the response.
+    - [x] If `data` is not null and not undefined, update the component's state using the `setAppState` function. Pass a callback to `setAppState` that takes the previous state and returns a new state object.
+    - [x] In the callback, use the spread operator (`...`) to copy the previous state's properties to the new state object.
+    - [x] Assign the following properties from the `data` object to the new state object:
+      - [x] `user`
+      - [x] `token`
+    - [x] Assign at least **one** of the following properties from the `data` object to the new state object:
+      - [x] `nutrition`
+      - [x] `exercise`
+      - [x] `sleep`
+    - [x] Call the `setAppState` with a new state object to update the component's state.
+    - [x] Outside the `fetchUser` function, call `fetchUser` to trigger the initial data fetch when the component mounts.
+    - [x] The effect should be triggered whenever the value of `appState.isAuthenticated` changes.
 
 #### Implement the `Loading` Component
 
-- [ ] Build the **`Loading`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `loading`
-  - [ ] Render an element with the class name of `loading-message` that contains the text `"Loading"`
+- [x] Build the **`Loading`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `loading`
+  - [x] Render an element with the class name of `loading-message` that contains the text `"Loading"`
 
 #### Implement the `Navbar` Component
 
-- [ ] Build the **`Navbar`** component to:
-  - [ ] Render JSX that is wrapped by a `nav` element with the class name of `navbar`
-  - [ ] Render the app's logo as an element with the class name of `logo`.
-    - [ ] Inside that element should be a `Link` component from `react-router-dom` that navigates the user to the `/` route when clicked.
-    - [ ] Inside that `Link` component should be the application's logo (text or image).
-  - [ ] Render the `NavLinks.jsx` component with links to each of the resources and the `/activity` route.
+- [x] Build the **`Navbar`** component to:
+  - [x] Render JSX that is wrapped by a `nav` element with the class name of `navbar`
+  - [x] Render the app's logo as an element with the class name of `logo`.
+    - [x] Inside that element should be a `Link` component from `react-router-dom` that navigates the user to the `/` route when clicked.
+    - [x] Inside that `Link` component should be the application's logo (text or image).
+  - [x] Render the `NavLinks.jsx` component with links to each of the resources and the `/activity` route.
 
 #### Implement the `NavLinks` Component
 
-- [ ] Build the **`NavLinks`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nav-links`
-  - [ ] Render a `Link` element from `react-router-dom` for:
-    - [ ] The `/activity` route with a label of `Activity`.
-    - [ ] The `/nutrition` route with a label of `Nutrition`.
+- [x] Build the **`NavLinks`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nav-links`
+  - [x] Render a `Link` element from `react-router-dom` for:
+    - [x] The `/activity` route with a label of `Activity`.
+    - [x] The `/nutrition` route with a label of `Nutrition`.
     - [ ] A route for any other resource page
-  - [ ] If a valid user is logged in, it should render an element with the class name of `logout-button` that calls the `logoutUser` function when clicked.
-    - [ ] The `logoutUser` function should remove the `lifetracker_token` from local storage and refresh the page so that all user data is reset.
-  - [ ] If no valid user is logged in:
-    - [ ] Render a `Link` element that redirects to the `/login` route with the label `Login`
-    - [ ] Render a `Link` element that redirects to the `/register` route with the label `Sign Up`
+  - [x] If a valid user is logged in, it should render an element with the class name of `logout-button` that calls the `logoutUser` function when clicked.
+    - [x] The `logoutUser` function should remove the `lifetracker_token` from local storage and refresh the page so that all user data is reset.
+  - [x] If no valid user is logged in:
+    - [x] Render a `Link` element that redirects to the `/login` route with the label `Login`
+    - [x] Render a `Link` element that redirects to the `/register` route with the label `Sign Up`
 
 #### Implement the `LoginForm` Component
 
-- [ ] Build the **`LoginForm`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `login-form`
-  - [ ] Render an input element for the following fields:
-    - [ ] `email`
-    - [ ] `password`
-  - [ ] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
-    - [ ] `name` - the `name` of the `input` field being rendered (`email`, `password`)
-    - [ ] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
-    - [ ] `value` - the current value of the `input` element
-    - [ ] `onChange` - the `onChange` handler function
-  - [ ] Validate the `email` field. If the user has entered text into the `email` field and it doesn't contain an `@` symbol, then an error message should be displayed in an element with the class name of `error` indicating that the entry is not a valid email.
-  - [ ] Gracefully handle errors:
-    - [ ] If the user has attempted to login and gotten a `401` error, then an error message should be displayed in an element with the class name of `error` indicating that the `email` and `password` combination is incorrect.
-    - [ ] If the user has attempted to login and gotten a `400` or `422` error, then an error message should be displayed in an element with the class name of `error` indicating what went wrong.
-  - [ ] There should be a `button` element with the class name of `submit-login`:
-    - [ ] It should contain the text `"Login"`
-    - [ ] When clicked, it should call the `loginUser` function
+- [x] Build the **`LoginForm`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `login-form`
+  - [x] Render an input element for the following fields:
+    - [x] `email`
+    - [x] `password`
+  - [x] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
+    - [x] `name` - the `name` of the `input` field being rendered (`email`, `password`)
+    - [x] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
+    - [x] `value` - the current value of the `input` element
+    - [x] `onChange` - the `onChange` handler function
+  - [x] Validate the `email` field. If the user has entered text into the `email` field and it doesn't contain an `@` symbol, then an error message should be displayed in an element with the class name of `error` indicating that the entry is not a valid email.
+  - [x] Gracefully handle errors:
+    - [x] If the user has attempted to login and gotten a `401` error, then an error message should be displayed in an element with the class name of `error` indicating that the `email` and `password` combination is incorrect.
+    - [x] If the user has attempted to login and gotten a `400` or `422` error, then an error message should be displayed in an element with the class name of `error` indicating what went wrong.
+  - [x] There should be a `button` element with the class name of `submit-login`:
+    - [x] It should contain the text `"Login"`
+    - [x] When clicked, it should call the `loginUser` function
 
 #### Implement the `LoginPage` Component
 
-- [ ] Build the **`LoginPage`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `login-page`
-  - [ ] Using either a custom hook, context, or manually set state, check to see if a user is already logged in
-    - [ ] If the user is already logged in, redirect them to the `/activity` page.
-    - [ ] If no user is authenticated, render the `LoginForm` component and pass it any props it needs.
+- [x] Build the **`LoginPage`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `login-page`
+  - [x] Using either a custom hook, context, or manually set state, check to see if a user is already logged in
+    - [x] If the user is already logged in, redirect them to the `/activity` page.
+    - [x] If no user is authenticated, render the `LoginForm` component and pass it any props it needs.
 
 #### Implement the `RegistrationForm` Component
 
-- [ ] Build the **`RegistrationForm`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `registration-form`
-  - [ ] Should render an input element for the following fields:
-    - [ ] `email`
-    - [ ] `username`
-    - [ ] `firstName`
-    - [ ] `lastName`
-    - [ ] `password`
-    - [ ] `passwordConfirm`
-  - [ ] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
-    - [ ] `name` - the `name` of the `input` field being rendered (`email`, `username`, `firstName`, `lastName`, `password`, `passwordConfirm`)
-    - [ ] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
-    - [ ] `value` - the current value of the `input` element
-    - [ ] `onChange` - the `onChange` handler function
-  - [ ] Validate the `email` field: If the user has entered text into the `email` field and it doesn't contain an `@` symbol, then an error message should be displayed in an element with the class name of `error` indicating that the entry is not a valid email.
-  - [ ] Validate the `password` and `passwordConfirm` fields: If the user has entered text into the `password` and `passwordConfirm` fields and they don't match, then a message should be displayed in an element with the `className` of `error` with a message that contains the text: `passwords don't match`
+- [x] Build the **`RegistrationForm`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `registration-form`
+  - [x] Should render an input element for the following fields:
+    - [x] `email`
+    - [x] `username`
+    - [x] `firstName`
+    - [x] `lastName`
+    - [x] `password`
+    - [x] `passwordConfirm`
+  - [x] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
+    - [x] `name` - the `name` of the `input` field being rendered (`email`, `username`, `firstName`, `lastName`, `password`, `passwordConfirm`)
+    - [x] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
+    - [x] `value` - the current value of the `input` element
+    - [x] `onChange` - the `onChange` handler function
+  - [x] Validate the `email` field: If the user has entered text into the `email` field and it doesn't contain an `@` symbol, then an error message should be displayed in an element with the class name of `error` indicating that the entry is not a valid email.
+  - [x] Validate the `password` and `passwordConfirm` fields: If the user has entered text into the `password` and `passwordConfirm` fields and they don't match, then a message should be displayed in an element with the `className` of `error` with a message that contains the text: `passwords don't match`
   - [ ] Gracefully handle errors:
     - [ ] If the user has attempted to login and gotten a `401` error, then the `errors` object should contain a `form` property that contains a message indicating that the `email` and `password` combination is incorrect.
     - [ ] If the user has attempted to login and gotten a `400` or `422` error, then the `errors` object should contain a `form` property that contains a message indicating what went wrong.
-  - [ ] There should be a `button` element with the `className` of `submit-registration`:
-    - [ ] It should contain the text `"Create Account"`
-    - [ ] When clicked, it should call the `signupUser` function
+  - [x] There should be a `button` element with the `className` of `submit-registration`:
+    - [x] It should contain the text `"Create Account"`
+    - [x] When clicked, it should call the `signupUser` function
 
 #### Implement the `RegistrationPage` component
 
-- [ ] Build the **`RegistrationPage`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `registration-page`
-  - [ ] Using either a custom hook, context, or manually handled state, check to see if a user is already logged in
-    - [ ] If the user is already logged in, it should redirect them to the `/activity` page
-    - [ ] If no user is authenticated, it should render the `RegistrationForm` component and pass it any props it needs
+- [x] Build the **`RegistrationPage`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `registration-page`
+  - [x] Using either a custom hook, context, or manually handled state, check to see if a user is already logged in
+    - [x] If the user is already logged in, it should redirect them to the `/activity` page
+    - [x] If no user is authenticated, it should render the `RegistrationForm` component and pass it any props it needs
 
 #### Implement the `LandingPage` Component
 
-- [ ] Build the **`LandingPage`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `landing-page`
-  - [ ] Render an element with the class name of `hero`
-    - [ ] Inside it, display a large hero image using an `img` element with the class name of `hero-img`
-    - [ ] Render a brief blurb on what this application is about inside an element with the class name of `cta`
-  - [ ] Allow unauthenticated access
+- [x] Build the **`LandingPage`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `landing-page`
+  - [x] Render an element with the class name of `hero`
+    - [x] Inside it, display a large hero image using an `img` element with the class name of `hero-img`
+    - [x] Render a brief blurb on what this application is about inside an element with the class name of `cta`
+  - [x] Allow unauthenticated access
 
 #### Implement the `ActivityPage` Component
 
-- [ ] Build the **`ActivityPage`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `activity-page`
-  - [ ] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
-  - [ ] If the `isProcessing` flag is `true`, it should render the `Loading` component.
-  - [ ] If the `isProcessing` flag is `false`, it should render the `ActivityFeed` component and pass it the appropriate props.
+- [x] Build the **`ActivityPage`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `activity-page`
+  - [x] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
+  - [x] If the `isProcessing` flag is `true`, it should render the `Loading` component.
+  - [x] If the `isProcessing` flag is `false`, it should render the `ActivityFeed` component and pass it the appropriate props.
 
 #### Implement the `ActivityFeed` Component
 
-- [ ] Build the **`ActivityFeed`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `activity-feed`
-  - [ ] Accept **at least** the following props:
-    - [ ] `totalCaloriesPerDay` - an array of items containing summary data about the total calories consumed per day
-    - [ ] `avgCaloriesPerCategory` - an array of items containing summary data about the average calories consumed per category
-    - [ ] Any other props as needed
-  - [ ] Inside an element with the class name of `per-category`, it should:
-    - [ ] Render the text: `"Average Calories Per Category` inside an `h4` element
-    - [ ] Take the first `6` or less items in the `avgCaloriesPerCategory` array and render a `SummaryStat` component for each item.
-      - [ ] Pass the calories **rounded down to one decimal place** as the `stat` prop
-      - [ ] Pass the string of `calories` as the `label` prop
-      - [ ] Pass the `category` as the `substat` prop
-  - [ ] Inside an element with the class name of `per-day`, it should:
-    - [ ] Render the text: `"Total Calories Per Day` inside an `h4` element
-    - [ ] For each item in the `totalCaloriesPerDay` array, render a `SummaryStat` component.
-      - [ ] Pass the calories **rounded down to the nearest whole number** as the `stat` prop
-      - [ ] Pass the string of `calories` as the `label` prop
-      - [ ] Pass the `date` in the format `dd/mm/yyyy` - example: `07/02/2022` - as the `substat` prop
+- [x] Build the **`ActivityFeed`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `activity-feed`
+  - [x] Accept **at least** the following props:
+    - [x] `totalCaloriesPerDay` - an array of items containing summary data about the total calories consumed per day
+    - [x] `avgCaloriesPerCategory` - an array of items containing summary data about the average calories consumed per category
+    - [x] Any other props as needed
+  - [x] Inside an element with the class name of `per-category`, it should:
+    - [x] Render the text: `"Average Calories Per Category` inside an `h4` element
+    - [x] Take the first `6` or less items in the `avgCaloriesPerCategory` array and render a `SummaryStat` component for each item.
+      - [x] Pass the calories **rounded down to one decimal place** as the `stat` prop
+      - [x] Pass the string of `calories` as the `label` prop
+      - [x] Pass the `category` as the `substat` prop
+  - [x] Inside an element with the class name of `per-day`, it should:
+    - [x] Render the text: `"Total Calories Per Day` inside an `h4` element
+    - [x] For each item in the `totalCaloriesPerDay` array, render a `SummaryStat` component.
+      - [x] Pass the calories **rounded down to the nearest whole number** as the `stat` prop
+      - [x] Pass the string of `calories` as the `label` prop
+      - [x] Pass the `date` in the format `dd/mm/yyyy` - example: `07/02/2022` - as the `substat` prop
 
 #### Implement the `SummaryStat` Component
 
-- [ ] Build the **`SummaryStat`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `summary-stat`
-  - [ ] Accept **at least** the following props:
-    - [ ] `stat` - the primary statistic to display
-    - [ ] `label` - the unit label assigned to the statistic
-    - [ ] `substat` - a secondary statistic related to the primary statistic
-  - [ ] Render the `stat` prop inside an element with the class name of `primary-statistic`
-  - [ ] Render the `label` prop inside an element with the class name of `stat-label`
-  - [ ] Render the `substat` prop inside an element with the class name of `secondary-statistic`
+- [x] Build the **`SummaryStat`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `summary-stat`
+  - [x] Accept **at least** the following props:
+    - [x] `stat` - the primary statistic to display
+    - [x] `label` - the unit label assigned to the statistic
+    - [x] `substat` - a secondary statistic related to the primary statistic
+  - [x] Render the `stat` prop inside an element with the class name of `primary-statistic`
+  - [x] Render the `label` prop inside an element with the class name of `stat-label`
+  - [x] Render the `substat` prop inside an element with the class name of `secondary-statistic`
 
 #### Implement the `NutritionPage` Component
 
-- [ ] Build the **`NutritionPage`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-page`
-  - [ ] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
-  - [ ] Render a nested `Routes` component from `react-router-dom`.
-    - [ ] There should be multiple `Route` components:
-      - [ ] The `/nutrition` route should render the `NutritionOverview` component
-      - [ ] The `/nutrition/create` route should render the `NutritionNew` component
-      - [ ] The `/nutrition/id/:nutritionId` should render the `NutritionDetail` component
-      - [ ] Any other route should render the `NotFound` component
+- [x] Build the **`NutritionPage`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nutrition-page`
+  - [x] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
+  - [x] Render a nested `Routes` component from `react-router-dom`.
+    - [x] There should be multiple `Route` components:
+      - [x] The `/nutrition` route should render the `NutritionOverview` component
+      - [x] The `/nutrition/create` route should render the `NutritionNew` component
+      - [x] The `/nutrition/id/:nutritionId` should render the `NutritionDetail` component
+      - [x] Any other route should render the `NotFound` component
 
 #### Implement the `NutritionOverview` Component
 
-- [ ] Build the **`NutritionOverview`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-overview`
-  - [ ] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
-    - [ ] If the `error` state variable has a valid string in it, it should render the `error` message inside an element with the class name of `error`
-    - [ ] If `isLoading` is `true`, it should render the `Loading` component
-    - [ ] If `isLoading` is `false`, it should render the `NutritionFeed` component and pass it the appropriate props
-  - [ ] Near the top of the component, it should render a `Link` component that directs to the `/nutrition/create` route and contains the text: `"Record Nutrition"`
+- [x] Build the **`NutritionOverview`** component to:
+  -[x] Render JSX that is wrapped by an element with the class name of `nutrition-overview`
+  - [x] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
+    - [x] If the `error` state variable has a valid string in it, it should render the `error` message inside an element with the class name of `error`
+    - [x] If `isLoading` is `true`, it should render the `Loading` component
+    - [x] If `isLoading` is `false`, it should render the `NutritionFeed` component and pass it the appropriate props
+  - [x] Near the top of the component, it should render a `Link` component that directs to the `/nutrition/create` route and contains the text: `"Record Nutrition"`
 
 #### Implement the `NutritionFeed` Component
 
-- [ ] Build the **`NutritionFeed`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-feed`
-  - [ ] Receive **at least** the following props:
-    - [ ] `nutritions` - an array of `nutrition` items
-  - [ ] If the `nutritions` array has no items in it, render an empty message that says `Nothing here yet` inside an element with the class name of `empty-message`
-  - [ ] If the `nutritions` array does have items in it:
-    - [ ] For each item in the `nutritions` array, it should render a `NutritionCard` component
+- [x] Build the **`NutritionFeed`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nutrition-feed`
+  - [x] Receive **at least** the following props:
+    - [x] `nutritions` - an array of `nutrition` items
+  - [x] If the `nutritions` array has no items in it, render an empty message that says `Nothing here yet` inside an element with the class name of `empty-message`
+  - [x] If the `nutritions` array does have items in it:
+    - [x] For each item in the `nutritions` array, it should render a `NutritionCard` component
 
 #### Implement the `NutritionNew` Component
 
-- [ ] Build the **`NutritionNew`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-new`
-  - [ ] Render the `NutritionForm` component and pass it the appropriate props
+- [x] Build the **`NutritionNew`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nutrition-new`
+  - [x] Render the `NutritionForm` component and pass it the appropriate props
 
 #### Implement the `NutritionForm` Component
 
-- [ ] Build the **`NutritionForm`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-form`
-  - [ ] Render an input element for the following fields:
-    - [ ] `name` - name of the nutrition item (defaults to an empty string)
-    - [ ] `calories` - number of calories in the nutrition item (defaults to 1)
-    - [ ] `imageUrl` - the `url` of an image to show for this nutrition item (defaults to an empty string)
-    - [ ] `category` - the category that this nutrition item belongs to, like fruit, meat, soda, snack, nuts, etc. (defaults to an empty string)
-  - [ ] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
-    - [ ] `name` - the `name` of the `input` field being rendered (`name`, `calories`, `imageUrl`, `category`)
-    - [ ] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
-    - [ ] `value` - the current value of the `input` element
-    - [ ] `onChange` - the `onChange` handler function
+- [x] Build the **`NutritionForm`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nutrition-form`
+  - [x] Render an input element for the following fields:
+    - [x] `name` - name of the nutrition item (defaults to an empty string)
+    - [x] `calories` - number of calories in the nutrition item (defaults to 1)
+    - [x] `imageUrl` - the `url` of an image to show for this nutrition item (defaults to an empty string)
+    - [x] `category` - the category that this nutrition item belongs to, like fruit, meat, soda, snack, nuts, etc. (defaults to an empty string)
+  - [x] Each `input` element in the form should have a class name of `form-input` and should have the following props set:
+    - [x] `name` - the `name` of the `input` field being rendered (`name`, `calories`, `imageUrl`, `category`)
+    - [x] `type` - the type of the `input` element (`text`, `email`, `number`, etc.)
+    - [x] `value` - the current value of the `input` element
+    - [x] `onChange` - the `onChange` handler function
   - [ ] Gracefully handle errors:
     - [ ] If any of the required fields are left blank, there should be an error message inside of an element with the class name of `error` indicating which fields are required.
     - [ ] If the user has attempted to create a nutrition entry and gotten a `400` or `422` error, then that message should be displayed inside an element with the class name of `error`
-  - [ ] There should be a `button` element with the class name of `submit-nutrition`:
-    - [ ] Contain the text `"Save"`
-    - [ ] When clicked, it should call a function that creates a new nutrition entry
-  - [ ] After the form has been successfully submitted:
+  - [x] There should be a `button` element with the class name of `submit-nutrition`:
+    - [x] Contain the text `"Save"`
+    - [x] When clicked, it should call a function that creates a new nutrition entry
+  - [x] After the form has been successfully submitted:
     - [ ] Ensure that the new nutrition entry is stored in the `nutrition` context's `nutritions` array and is displayed in the `NutritionFeed` component
     - [ ] Fetch the `activity` data again so that new summary stats will be calculated
 
 #### Implement the `NutritionDetail` Component
 
-- [ ] Build the **`NutritionDetail.jsx`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-detail`
-  - [ ] Leverage the `useParams` hook from `react-router-dom` to extract the `nutritionId` param from the URL
-  - [ ] When the component is mounted to the screen...
-    - [ ] It should make a `GET` request to the `/nutrition/:nutritionId` endpoint with the `axios.get` method.
-    - [ ] The `:nutritionId` part of the request should be replaced with the `nutritionId` pulled from the URL.
-    - [ ] When the initial request is loading, it should render an `h1` element with the class name of `loading` and contain the text `"Loading..."`
-    - [ ] Store the `nutrition` received by the request in state and then render a `NutritionCard` component for that nutrition.
-    - [ ] If no `nutrition` is found with that `id`, it should render the `NotFound` component
+- [x] Build the **`NutritionDetail.jsx`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nutrition-detail`
+  - [x] Leverage the `useParams` hook from `react-router-dom` to extract the `nutritionId` param from the URL
+  - [x] When the component is mounted to the screen...
+    - [x] It should make a `GET` request to the `/nutrition/:nutritionId` endpoint with the `axios.get` method.
+    - [x] The `:nutritionId` part of the request should be replaced with the `nutritionId` pulled from the URL.
+    - [x] When the initial request is loading, it should render an `h1` element with the class name of `loading` and contain the text `"Loading..."`
+    - [x] Store the `nutrition` received by the request in state and then render a `NutritionCard` component for that nutrition.
+    - [x] If no `nutrition` is found with that `id`, it should render the `NotFound` component
 
 #### Implement the `NutritionCard` Component
 
-- [ ] Build the **`NutritionCard`** component to:
-  - [ ] Render JSX that is wrapped by an element with the class name of `nutrition-card`
-  - [ ] Accept **at least** the following props:
-    - [ ] `nutrition` - should be a nutrition entry object containing the following attributes:
+- [x] Build the **`NutritionCard`** component to:
+  - [x] Render JSX that is wrapped by an element with the class name of `nutrition-card`
+  - [x] Accept **at least** the following props:
+    - [x] `nutrition` - should be a nutrition entry object containing the following attributes:
       - [ ] `imageUrl` - (not required)
       - [ ] `name` - (required)
       - [ ] `calories` - (required)
       - [ ] `category` - (required)
       - [ ] `createdAt` - (required)
-  - [ ] Render the `name` of the `nutrition` entry inside an element with the class name of `nutrition-name`
-  - [ ] If the `nutrition` entry has a valid `imageUrl` attribute, render an `img` element with the class name of `nutrition-image` and use that `imageUrl` as its `src`
-  - [ ] Render the `calories` attribute of the `nutrition` entry inside an element with the class name of `nutrition-calories`
-  - [ ] Render the `category` attribute of the `nutrition` entry inside an element with the class name of `nutrition-category`
-  - [ ] Render the `createdAt` attribute of the `nutrition` entry in the format `dd/mm/yyyy` - example: `07/02/2022` - inside an element with the class name of `nutrition-date`.
+  - [x] Render the `name` of the `nutrition` entry inside an element with the class name of `nutrition-name`
+  - [x] If the `nutrition` entry has a valid `imageUrl` attribute, render an `img` element with the class name of `nutrition-image` and use that `imageUrl` as its `src`
+  - [x] Render the `calories` attribute of the `nutrition` entry inside an element with the class name of `nutrition-calories`
+  - [x] Render the `category` attribute of the `nutrition` entry inside an element with the class name of `nutrition-category`
+  - [x] Render the `createdAt` attribute of the `nutrition` entry in the format `dd/mm/yyyy` - example: `07/02/2022` - inside an element with the class name of `nutrition-date`.
 
   - [ ] **DO THE SAME FOR ANY OTHER RESOURCE THAT IS IN THE APPLICATION**
     - [ ] Choose whatever resources you want!
 
 #### Implement the `ProtectedRoute` Component
 
-- [ ] Build the **`ProtectedRoute`** component to:
-  - [ ] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
-  - [ ] Accept a component as the `element` prop and render that component.
-  - [ ] If the application isn't currently loading and no user is found, render the `LoginPage` component instead of rendering the route the user intended to go to. This way, we can ensure that only authenticated users can access the provided component.
-  - [ ] Any unauthenticated user should be shown the `LoginPage` component with a message indicating that they need to authenticate first
-  - [ ] Update the `LoginPage` component so that it accepts a `message` prop that is displayed in the login form - if it exists.
-  - [ ] Make sure to protect the entire `ActivityPage` component route and the `NutritionPage` component route (along with any other private resource pages). Don't protect the `LandingPage` component or the `LoginPage` and `RegistrationPage` components, as they should be public.
+- [x] Build the **`ProtectedRoute`** component to:
+  - [x] Take the `appState` and `setAppState` as props and extract all the necessary data from it.
+  - [x] Accept a component as the `element` prop and render that component.
+  - [x] If the application isn't currently loading and no user is found, render the `LoginPage` component instead of rendering the route the user intended to go to. This way, we can ensure that only authenticated users can access the provided component.
+  - [x] Any unauthenticated user should be shown the `LoginPage` component with a message indicating that they need to authenticate first
+  - [x] Update the `LoginPage` component so that it accepts a `message` prop that is displayed in the login form - if it exists.
+  - [x] Make sure to protect the entire `ActivityPage` component route and the `NutritionPage` component route (along with any other private resource pages). Don't protect the `LandingPage` component or the `LoginPage` and `RegistrationPage` components, as they should be public.
 
 ### API
 
