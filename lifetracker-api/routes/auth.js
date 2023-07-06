@@ -12,7 +12,7 @@ const express = require('express')
 const User = require('../models/users')
 const { SECRET_KEY } = require('../config')
 const { createToken } = require('../utils/tokens')
-const requireAuth = require('../middleware/security').requireAuthenticatedUser
+const { requireAuthenticatedUser } = require('../middleware/security')
 
 const authRouter = express.Router()
 
@@ -56,7 +56,7 @@ authRouter.post('/register', async ({ body: credentials }, res) => {
  * @route {GET} /me
  * @authentication This route requires authenticated users.
  */
-authRouter.get('/me', requireAuth, async (req, res) => {
+authRouter.get('/me', requireAuthenticatedUser, async (req, res) => {
     try {
         const email = res.locals.user.email
         const user = await User.fetchUserByEmail(email)
