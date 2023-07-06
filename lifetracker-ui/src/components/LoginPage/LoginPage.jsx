@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import LoginForm from '../LoginForm/LoginForm'
 import ApiClient from '../../../../services/apiClient'
+import './LoginPage.css'
 
 export default function LoginPage({ setAppState, message }) {
     const navigate = useNavigate()
@@ -23,8 +24,9 @@ export default function LoginPage({ setAppState, message }) {
 
     return (
         <div className='login-page'>
-            {message && <p>{message}</p>}
             <LoginForm loginUser={loginUser} />
+            {message && <p>{message}</p>}
+            <p>New to us? <Link to='/register'>Sign Up</Link></p>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './LoginForm.css'
 
 export default function LoginForm({ loginUser }) {
     const [email, setEmail] = useState('')
@@ -30,31 +31,42 @@ export default function LoginForm({ loginUser }) {
     return (
         <div className='login-form'>
             {error && <div className='error'>{error}</div>}
-            <form onSubmit={handleSubmit}>
-                <input
-                    className='form-input'
-                    type='email'
-                    name='email'
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder='Email'
-                />
-
-                <input
-                    className='form-input'
-                    type='password'
-                    name='password'
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder='Password'
-                />
-
-                <button
-                    className='submit-login'
-                    type='submit'>
-                    Login
-                </button>
-            </form>
+            <section className='form-wrap'>
+                <h1>Welcome</h1>
+                <div className='form-box'>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor='email'>Email </label><br />
+                            <input
+                                className='form-input'
+                                type='email'
+                                name='email'
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                placeholder='something@somewhere.com'
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='password'>Password </label><br />
+                            <input
+                                className='form-input'
+                                type='password'
+                                name='password'
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                placeholder='password123'
+                            />
+                        </div>
+                        <div>
+                            <button
+                                className='submit-login'
+                                type='submit'>
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
     )
 }
