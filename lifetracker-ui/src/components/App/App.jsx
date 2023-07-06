@@ -5,9 +5,16 @@ import LoginPage from '../LoginPage/LoginPage'
 import RegistrationPage from '../RegistrationPage/RegistrationPage'
 import ActivityPage from '../ActivityPage/ActivityPage'
 import NutritionPage from '../NutritionPage/NutritionPage'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import NotFound from '../NotFound/NotFound'
 import Navbar from '../Navbar/Navbar'
 import ApiClient from '../../../../services/apiClient'
+import './App.css'
+
+/**
+ * @todo
+ * update navbar pass appstate to navlinks
+ */
 
 export default function App() {
     const [appState, setAppState] = useState({
@@ -28,10 +35,7 @@ export default function App() {
                     setAppState(prevState => ({
                         ...prevState,
                         user: data.user,
-                        isAuthenticated: !!data.user,
                         nutrition: data.nutrition,
-                        sleep: data.sleep,
-                        exercise: data.exercise,
                         token: token
                     }))
                 }
@@ -47,61 +51,71 @@ export default function App() {
                     user={appState.user}
                     setUser={setAppState}
                 />
-                <Routes>
-                    <Route
-                        path='/'
-                        element={<LandingPage />}
-                    />
-                    <Route
-                        path='/login'
-                        element={<LoginPage setAppState={setAppState} />}
-                    />
-                    <Route
-                        path='/register'
-                        element={
-                            <RegistrationPage
-                                isAuthenticated={appState.isAuthenticated}
-                                setAppState={setAppState}
-                            />
-                        }
-                    />
-                    <Route
-                        path='/activity'
-                        element={
-                            appState.isAuthenticated ? (
-                                <ActivityPage
+                <section className='app-body'>
+                    <Routes>
+                        <Route
+                            path='/'
+                            element={<LandingPage />}
+                        />
+                        <Route
+                            path='/login'
+                            element={<LoginPage setAppState={setAppState} />}
+                        />
+                        <Route
+                            path='/register'
+                            element={
+                                <RegistrationPage
+                                    isAuthenticated={appState.isAuthenticated}
+                                    setAppState={setAppState}
+                                />
+                            }
+                        />
+                        <Route
+                            path='/activity'
+                            element={
+                                <ProtectedRoute
+                                    element={
+                                        <ActivityPage
+                                            appState={appState}
+                                            setAppState={setAppState}
+                                        />
+                                    }
                                     appState={appState}
-                                    setAppState={setAppState}
+                                    fallback={
+                                        <LoginPage
+                                            message='Please login to view this page'
+                                            setAppState={setAppState}
+                                        />
+                                    }
                                 />
-                            ) : (
-                                <LoginPage
-                                    message='Please login to view this page'
-                                    setAppState={setAppState}
-                                />
-                            )
-                        }
-                    />
-                    <Route
-                        path='/nutrition/*'
-                        element={
-                            appState.isAuthenticated ? (
-                                <NutritionPage
+                            }
+                        />
+                        <Route
+                            path='/nutrition/*'
+                            element={
+                                <ProtectedRoute
+                                    element={
+                                        <NutritionPage
+                                            appState={appState}
+                                            setAppState={setAppState}
+                                        />
+                                    }
                                     appState={appState}
-                                    setAppState={setAppState}
+                                    fallback={
+                                        <LoginPage
+                                            message='Please login to view this page'
+                                            setAppState={setAppState}
+                                        />
+                                    }
                                 />
-                            ) : (
-                                <LoginPage
-                                    message='Please login to view this page'
-                                    setAppState={setAppState}
-                                />
-                            )
-                        }
-                    />
-                    <Route
-                        path='*'
-                        element={<NotFound />}
-                    />
-                </Routes>
+                            }
+                        />
+                        <Route
+                            path='*'
+                            element={<NotFound />}
+                        />
+                    </Routes>
+                </section>
             </BrowserRouter>
         </div>
     )
