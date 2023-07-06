@@ -1,25 +1,31 @@
-.login-form {
+.registration-form {
     display: flex;
     flex-direction: column;
 }
 
-.login-form input {
+.registration-form .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.registration-form input {
     margin-bottom: 10px;
 }
 
-.form-wrap {
+.rform-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #38B2Ac
 }
 
-.form-wrap h1 {
+.rform-wrap h1 {
     font-size: 50px;
     margin-bottom: 20px;
 }
 
-.form-box {
+.rform-box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,18 +36,18 @@
     max-width: 470px;
 }
 
-.form-box label {
+.rform-box label {
     font-size: 16px;
 }
 
-.form-box input {
+.form-input {
     padding: 0.5rem;
     border: 1px solid #38B2Ac;
     border-radius: 5px;
-    min-width: 400px;
+    width: 400px;
 }
 
-.form-box button {
+.rform-box button {
     padding: 0.5rem;
     border: 1px solid #319795;
     width: 100%;
@@ -49,4 +55,27 @@
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
+}
+
+.rform-box h3 {
+    color: red;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+
+.name {
+    display: flex;
+    flex-direction: row;
+}
+
+.name section {
+    width: 50%;
+}
+
+.rname {
+    padding: 0.5rem;
+    border: 1px solid #38B2Ac;
+    border-radius: 5px;
+    width: 190px;
 }

@@ -1,11 +1,18 @@
+import './LandingPage.css'
+
 export default function LandingPage() {
     return (
         <section className='landing-page'>
             <div className='hero'>
-                <img className='hero-img' src='https://github.com/identicons/lifetracker.png' alt='hero' />
                 <div className='cta'>
-                    <p>Welcome to LifeTracker, your go-to solution for tracking your daily activities!</p>
+                    <h1>LifeTracker</h1>
+                    <h2>Helping you take back control of your world.</h2>
                 </div>
+                <img
+                    className='hero-img'
+                    src='https://lifetracker.up.railway.app/assets/tracker-2a96bfd0.jpg'
+                    alt='hero'
+                />
             </div>
         </section>
     )

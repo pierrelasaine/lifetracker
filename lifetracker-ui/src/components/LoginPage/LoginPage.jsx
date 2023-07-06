@@ -26,7 +26,9 @@ export default function LoginPage({ setAppState, message }) {
         <div className='login-page'>
             <LoginForm loginUser={loginUser} />
             {message && <p>{message}</p>}
-            <p>New to us? <Link to='/register'>Sign Up</Link></p>
+            <p>
+                New to us? <Link to='/register'>Sign Up</Link>
+            </p>
         </div>
     )
 }

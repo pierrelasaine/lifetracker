@@ -1,5 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './NavLinks.css'
+
+/**
+ * 
+ * @todo
+ * update isAuth to false when logging out
+ */
 
 export default function NavLinks({ user, setUser }) {
     const logoutUser = () => {
@@ -9,23 +16,32 @@ export default function NavLinks({ user, setUser }) {
     }
 
     return (
-        <div className='nav-links'>
-            <Link to='/activity'>Activity</Link>
-            <Link to='/nutrition'>Nutrition</Link>
-            {/* Add more routes */}
-
+        <>
+            <section className='nav-links'>
+                <Link to='/activity'>
+                    <div className='link'>Activity</div>
+                </Link>
+                <Link to='/nutrition'>
+                    <div className='link'>Nutrition</div>
+                </Link>
+                {/* Add more routes */}
+            </section>
             {user ? (
                 <button
-                    className='logout-button'
+                    className='signin'
                     onClick={logoutUser}>
                     Logout
                 </button>
             ) : (
-                <>
-                    <Link to='/login'>Login</Link>
-                    <Link to='/register'>Sign Up</Link>
-                </>
+                <div className='nav-buttons'>
+                    <Link to='/login'>
+                        <button className='signin'>Sign In</button>
+                    </Link>
+                    <Link to='/register'>
+                        <button className='register'>Register</button>
+                    </Link>
+                </div>
             )}
-        </div>
+        </>
     )
 }

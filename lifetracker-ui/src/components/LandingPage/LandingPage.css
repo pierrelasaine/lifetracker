@@ -1,0 +1,22 @@
+.hero {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.hero img {
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.cta {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cta h1 {
+    font-size: 70px;
+    margin-bottom: 10px;
+}

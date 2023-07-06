@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import RegistrationForm from '../RegistrationForm/RegistrationForm'
+import './RegistrationPage.css'
 
 export default function RegistrationPage({ isAuthenticated, setAppState }) {
     const navigate = useNavigate()
@@ -11,7 +12,10 @@ export default function RegistrationPage({ isAuthenticated, setAppState }) {
 
     return (
         <div className='registration-page'>
-            <RegistrationForm />
+            <RegistrationForm setAppState={setAppState} />
+            <p>
+                Have an account? <Link to='/login'>Login</Link>
+            </p>
         </div>
     )
 }

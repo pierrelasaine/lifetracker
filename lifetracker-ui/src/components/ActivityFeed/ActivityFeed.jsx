@@ -37,7 +37,7 @@ export default function ActivityFeed() {
     useEffect(() => {
         const fetchActivityStats = async () => {
             const response = await ApiClient.fetchActivityStats()
-            setStats(response.data.stats)
+            setStats(response?.data.stats)
         }
 
         fetchActivityStats()

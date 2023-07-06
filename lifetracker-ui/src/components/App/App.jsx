@@ -36,6 +36,7 @@ export default function App() {
                         ...prevState,
                         user: data.user,
                         nutrition: data.nutrition,
+                        isAuthenticated: true,
                         token: token
                     }))
                 }
