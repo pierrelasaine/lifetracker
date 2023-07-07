@@ -6,7 +6,7 @@
  * @exports API_BASE_URL - The base URL that should be used for API calls, determined based on the current environment.
  */
 
-export const PRODUCTION_API_BASE_URL = 'http://localhost:3001'
+export const PRODUCTION_API_BASE_URL = 'https://lifetracker-qqyg.onrender.com'
 export const DEVELOPMENT_API_BASE_URL = 'http://localhost:3001'
 export const API_BASE_URL =
     process.env.NODE_ENV === 'production'
