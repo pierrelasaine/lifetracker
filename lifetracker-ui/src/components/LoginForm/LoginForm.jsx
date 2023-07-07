@@ -15,17 +15,8 @@ export default function LoginForm({ loginUser }) {
             return
         } // use regex to validate email
 
-        try {
-            await loginUser({ email, password })
-        } catch (error) {
-            if (error.response.status === 401) {
-                setError('Email and password combination is incorrect.')
-            } else if ([400, 422].includes(error.response.status)) {
-                setError('Something went wrong. Please try again.')
-            } else {
-                setError('An unexpected error occurred. Please try again.')
-            }
-        }
+        const { data, error } = await loginUser({ email, password })
+        if (error) setError(error.response.data.error)
     }
 
     return (
