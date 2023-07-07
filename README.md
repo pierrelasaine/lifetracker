@@ -23,6 +23,8 @@ By the end of this project you will be able to...
 
 ### Core Features
 
+Loom: https://www.loom.com/share/3f8e59434fac4c42b85d7a2a57b06ae9?sid=f85930b6-ec6f-48c7-b143-6a64f2b09b71
+
 - [x] **The Landing Page:** Display a large hero image and a brief blurb on what this application is about. *Note:* This is the only page that unauthenticated users should be able to view.
 - [x] **Registration Page:** A form that allows the user to sign up with their email, password, username, first name, and last name.
 - [x] **Login Page:** A form that allows users to login with email and password.
