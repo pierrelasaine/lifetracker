@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import NutritionCard from '../NutritionCard/NutritionCard'
 import NotFound from '../NotFound/NotFound'
-import ApiClient from '../../../../services/apiClient'
+import ApiClient from '../../../services/apiClient'
 import Loading from '../Loading/Loading'
 
 export default function NutritionDetail() {

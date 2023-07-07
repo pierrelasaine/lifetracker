@@ -8,7 +8,7 @@ import NutritionPage from '../NutritionPage/NutritionPage'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import NotFound from '../NotFound/NotFound'
 import Navbar from '../Navbar/Navbar'
-import ApiClient from '../../../../services/apiClient'
+import ApiClient from '../../../services/apiClient'
 import './App.css'
 
 /**

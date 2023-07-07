@@ -1,6 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom'
 import LoginForm from '../LoginForm/LoginForm'
-import ApiClient from '../../../../services/apiClient'
+import ApiClient from '../../../services/apiClient'
 import './LoginPage.css'
 
 export default function LoginPage({ setAppState, message }) {

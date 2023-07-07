@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import ApiClient from '../../../../services/apiClient'
+import ApiClient from '../../../services/apiClient'
 import './RegistrationForm.css'
 
 /**

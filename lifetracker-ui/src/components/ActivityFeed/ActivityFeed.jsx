@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import moment from 'moment'
 
-import ApiClient from '../../../../services/apiClient'
+import ApiClient from '../../../services/apiClient'
 import Loading from '../Loading/Loading'
 import SummaryStat from '../SummaryStat/SummaryStat'
 

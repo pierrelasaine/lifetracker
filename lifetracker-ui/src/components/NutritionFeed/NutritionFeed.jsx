@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import NutritionCard from '../NutritionCard/NutritionCard'
-import ApiClient from '../../../../services/apiClient'
+import ApiClient from '../../../services/apiClient'
 
 export default function NutritionFeed() {
     const [nutritions, setNutritions] = useState()
